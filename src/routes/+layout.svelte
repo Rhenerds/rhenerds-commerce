@@ -1,7 +1,24 @@
 <script lang="ts">
-	import '../app.css';
+	import '../app.css'
 	
-	let { children } = $props();
+	let { children } = $props()
+
+	import {goto} from '$app/navigation'
+
+	let searchTerm: string = ''
+
+	function handleSearch() {
+        if (searchTerm.trim()) {
+            const encodedSearchTerm = encodeURIComponent(searchTerm.trim())
+            goto(`/catalog/?q=${encodedSearchTerm}`)
+        }
+	}
+
+	function handleKeyPress(event: KeyboardEvent) {
+        if (event.key === 'Enter') {
+            handleSearch();
+        }
+    }
 </script>
 
 <header>
@@ -26,7 +43,7 @@
 		</div>
 		<div class="SearchBar">
 			<label for="SearchBar">Search</label>
-  			<input type="text" id="SearchBar" placeholder="Search Here">
+  			<input type="text" id="SearchBar" placeholder="Search Here" bind:value={searchTerm} onkeyup={handleKeyPress}>
 		</div>
 	</nav>
 </header>

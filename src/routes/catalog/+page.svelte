@@ -9,6 +9,12 @@
 </svelte:head>
 
 <h1>Catalog</h1>
+{#if data.searchTerm != ''}
+<div class="SearchInfo">
+    <p class="SearchText">Showing search results for '{data.searchTerm}'</p>
+    <a class="SearchTextLink" href="/catalog">Clear search</a>
+</div>
+{/if}
 <div class="ProdView">
     {#each data.posts as post}
         <a href="/catalog/{post.slug}" class="ProdItem">
@@ -86,5 +92,41 @@
         font-weight: 300;
         line-height: 90%; /* 18px */
         letter-spacing: -0.6px;
+    }
+
+    .SearchInfo {
+        display: flex;
+        flex-direction: row;
+        margin-bottom: 10px;
+    }
+
+    .SearchText {
+        font-family: 'Roboto Flex';
+        margin-right: 5px;
+        width: auto;
+        text-align: center;
+        color: #000;
+        font-size: 20px;
+        font-style: normal;
+        font-weight: 300;
+        line-height: 90%; /* 18px */
+        letter-spacing: -0.6px;
+    }
+
+    .SearchTextLink {
+        font-family: 'Roboto Flex';
+        margin-right: 5px;
+        width: auto;
+        text-align: center;
+        color: #004488;
+        font-size: 20px;
+        font-style: normal;
+        font-weight: 300;
+        line-height: 90%; /* 18px */
+        letter-spacing: -0.6px;
+    }
+
+    .SearchTextLink:hover {
+        text-decoration: underline 2px;
     }
 </style>
