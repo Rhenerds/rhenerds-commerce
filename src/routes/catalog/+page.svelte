@@ -19,6 +19,7 @@
     {#each data.posts as post}
         <a href="/catalog/{post.slug}" class="ProdItem">
             <div class="ProdImg">
+                <img src="{post.images[0]}" alt="{post.title} product image" style="width: 100%; height: 100%; object-fit: contain; border-radius: 10px">
             </div>
             <div class="ProdInfo">
             <p class="ProdText">{post.title}</p>
@@ -68,7 +69,7 @@
     }
     .ProdImg {
         border-radius: 10px;
-        background-color: aqua;
+        background-color: #545454;
         width: 170px;
         height: 170px;
     }
