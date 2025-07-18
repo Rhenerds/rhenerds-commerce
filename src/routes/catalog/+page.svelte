@@ -17,7 +17,7 @@
 {/if}
 <div class="ProdView">
     {#each data.posts as post}
-        <a href="/catalog/{post.slug}" class="ProdItem">
+        <a href="/catalog/{post.slug}?refer=catalog" class="ProdItem">
             <div class="ProdImg">
                 <img src="{post.images[0]}" alt="{post.title} product image" style="width: 100%; height: 100%; object-fit: contain; border-radius: 10px">
             </div>

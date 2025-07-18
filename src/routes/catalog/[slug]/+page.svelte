@@ -1,6 +1,6 @@
 <script lang="ts">
     // Assuming 'data' is passed as a prop from a load function or parent
-    let { data } = $props(); // Or `export let data;` if not using $props()
+    let { data } = $props() // Or `export let data;` if not using $props()
 
 	let index = $state(0);
 
@@ -51,6 +51,13 @@
 	<meta property="og:type" content="article" />
 	<meta property="og:title" content={data.meta.title} />
 </svelte:head>
+
+{#if data.source === "h"}
+	<a class="BackLink" href="/">Back to home</a>
+{/if}
+{#if data.source === "c"}
+	<a class="BackLink" href="/catalog">Back to catalog</a>
+{/if}
 
 <div class="ProductEnv">
 
@@ -116,6 +123,22 @@
 </div>
 
 <style>
+	.BackLink {
+		color: #000158;
+		text-align: left;
+		font-family: "Roboto Flex";
+		font-size: 20px;
+		font-style: normal;
+		font-weight: 300;
+		line-height: 90%; /* 18px */
+		letter-spacing: -0.6px;
+		margin-bottom: 10px;
+	}
+
+	.BackLink:hover {
+		text-decoration: underline 2px;
+	}
+
 	h1 {
 		color: #000;
 		font-family: "Roboto Flex";
