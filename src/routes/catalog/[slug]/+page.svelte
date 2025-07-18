@@ -1,6 +1,49 @@
 <script lang="ts">
+    // Assuming 'data' is passed as a prop from a load function or parent
+    let { data } = $props(); // Or `export let data;` if not using $props()
 
-	let { data } = $props()
+	let index = $state(0);
+
+    import { Carousel, Controls, CarouselIndicators, Thumbnails } from "flowbite-svelte";
+
+    function getImageName(src: string | undefined | null): string {
+        // Safeguard against undefined/null/non-string src
+        if (typeof src !== 'string' || !src) {
+            console.warn("getImageName received invalid or missing src:", src);
+            return 'unknown-image';
+        }
+
+        // Get the last part of the URL (the filename with extension)
+        const filenameWithExtension = src.split('/').pop();
+
+        // Safeguard against cases where pop() might return undefined (e.g., src is just "/")
+        if (!filenameWithExtension) {
+            console.warn("Could not extract filename from src:", src);
+            return 'unknown-image';
+        }
+
+        // Remove the file extension
+        const filenameWithoutExtension = filenameWithExtension.split('.').slice(0, -1).join('.');
+
+        // Remove common suffixes like "-<hash>-unsplash" or "-unsplash" if they exist
+        // Adjust this regex if your URLs have different naming conventions
+        const cleanName = filenameWithoutExtension.replace(/(-[a-zA-Z0-9]{7,12})?-unsplash$/, '');
+
+        // Replace hyphens with spaces for better readability in alt/title
+        return cleanName.replace(/-/g, ' ');
+    }
+
+    // --- Transform the array of URL strings into the desired JSON object structure ---
+    // Ensure data.meta.images is an array before mapping.
+    // data.meta.images is expected to be an array of strings like ["/productimages/smth.png", ...]
+    const images = (data?.meta?.images ?? []).map((url: string) => {
+        const name = getImageName(url); // Get the clean name from the URL string
+        return {
+            alt: name,   // Set alt to the clean name
+            src: url,    // The src is the original URL string
+            title: name  // Set title to the clean name
+        };
+    });
 </script>
 
 <svelte:head>
@@ -9,45 +52,172 @@
 	<meta property="og:title" content={data.meta.title} />
 </svelte:head>
 
-<article>
-	<hgroup>
-		<h1>{data.meta.title}</h1>
-	</hgroup>
+<div class="ProductEnv">
 
-	<div class="tags">
-		{#each data.meta.categories as category}
-			<span class="surface-4">&num;{category}</span>
-		{/each}
+	<div class="ProductSlide">
+		<Carousel {images} imgClass="object-contain h-full w-fit rounded-xs" bind:index>
+		<Controls class="items-center pt-4 text-red-400 dark:text-green-400 p-8" />
+		<CarouselIndicators class="p-4" position="withThumbnails" />
+		<Thumbnails {images} imgClass="object-contain h-[100px] w-[100px] rounded-xs" bind:index />
+	</Carousel>
 	</div>
 
-	<div class="prose">
-		<data.content />
+	<article class="ProductSlide" style="padding-left: 20px;">
+		<hgroup>
+			<h1>{data.meta.title}</h1>
+		</hgroup>
+
+		<p class="ProdPrice">{data.meta.price}</p>
+
+		<div class="InfoBarrier"></div>
+
+		<div class="prose">
+			<data.content />
+		</div>
+	</article>
+
+	<div class="PriceSlide">
+		<p class="ProdText">Informasi Pembelian:</p>
+		{#if data.meta.linkstate === 'PO'}
+			<p class="ProdText">Preorder Tersedia</p>
+		{/if}
+		{#if data.meta.linkstate === 'OTS'}
+			<p class="ProdText">Beli Di Tempat</p>
+		{/if}
+		{#if data.meta.linkstate === 'U'}
+			<p class="ProdText">Belum Tersedia</p>
+		{/if}
+		{#if data.meta.linkstate === 'SO'}
+			<p class="ProdText">Stok Habis</p>
+		{/if}
+		<div class="InfoBarrier" style="background-color: #FFF;"></div>
+		<p class="ProdText">Subtotal: {data.meta.price}</p>
+			{#if data.meta.linkstate === 'PO'}
+				<div class="BuyButton">
+					<a class="BuyText" href="{data.meta.link}">Preorder (Doku)</a>
+				</div>
+			{/if}
+			{#if data.meta.linkstate === 'OTS'}
+				<div class="DarkButton">
+				<p class="DarkText">Beli secara langsung</p>
+				</div>
+			{/if}
+			{#if data.meta.linkstate === 'U'}
+				<div class="DarkButton">
+				<p class="DarkText">Belum Tersedia</p>
+				</div>
+			{/if}
+			{#if data.meta.linkstate === 'SO'}
+			<div class="DarkButton">
+				<p class="DarkText">Stok Habis</p>
+			</div>
+			{/if}
 	</div>
-</article>
+</div>
 
 <style>
-	article {
-		max-inline-size: var(--size-content-3);
-		margin-inline: auto;
+	h1 {
+		color: #000;
+		font-family: "Roboto Flex";
+		font-size: 38px;
+		font-style: normal;
+		font-weight: 400;
+		line-height: 90%; /* 28.8px */
+		letter-spacing: -0.96px;
+	}
 
-		h1 {
-			text-transform: capitalize;
-		}
+	.ProdPrice {
+		color: #000;
+		font-family: "Roboto Flex";
+		font-size: 45px;
+		font-style: normal;
+		font-weight: 430;
+		line-height: 90%; /* 28.8px */
+		letter-spacing: -0.96px;
+		margin-top: 20px;
+		margin-bottom: 30px;
+	}
 
-		h1 + p {
-			margin-top: var(--size-2);
-			color: var(--text-2);
-		}
+	.ProductEnv {
+		width: 100%;
+		height: fit-content;
+		display: flex;
+		flex-direction: row;
+	}
 
-		.tags {
-			display: flex;
-			gap: var(--size-3);
-			margin-top: var(--size-7);
+	.ProductSlide {
+		height: fit-content;
+		width: 40%;
+	}
 
-			> * {
-				padding: var(--size-2) var(--size-3);
-				border-radius: var(--radius-round);
-			}
-		}
+	.PriceSlide {
+		height: fit-content;
+		width: 20%;
+		background-color: #DDD;
+		border-radius: 22px;
+		padding: 15px;
+		margin-left: 20px;
+	}
+
+	.InfoBarrier {
+		width: 100%;
+		background-color: #DDD;
+		height: 4px;
+		border-radius: 2px;
+		margin-bottom: 30px;
+	}
+
+	.ProdText {
+		color: #000;
+		text-align: left;
+		font-family: "Roboto Flex";
+		font-size: 20px;
+		font-style: normal;
+		font-weight: 300;
+		line-height: 90%; /* 18px */
+		letter-spacing: -0.6px;
+		margin-bottom: 10px;
+	}
+
+	.BuyButton {
+		background-color: #009029;
+		width: 100%;
+		height: fit-content;
+		border-radius: 10px;
+		padding: 10px;
+	}
+
+	.DarkButton {
+		background-color: #555;
+		width: 100%;
+		height: fit-content;
+		border-radius: 10px;
+		padding: 10px;
+	}
+
+	.BuyText {
+		width: 100%;
+		color: #ffffff;
+		text-align: center;
+		font-family: "Roboto Flex";
+		font-size: 20px;
+		font-style: normal;
+		font-weight: 400;
+		line-height: 90%; /* 18px */
+		letter-spacing: -0.6px;
+		display: block;
+	}
+
+	.DarkText {
+		width: 100%;
+		color: #ffffff;
+		text-align: center;
+		font-family: "Roboto Flex";
+		font-size: 20px;
+		font-style: normal;
+		font-weight: 400;
+		line-height: 90%; /* 18px */
+		letter-spacing: -0.6px;
+		display: block;
 	}
 </style>
