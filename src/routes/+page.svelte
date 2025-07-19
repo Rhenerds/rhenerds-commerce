@@ -9,7 +9,7 @@
 </svelte:head>
 
 <h1>Welcome to our catalog site</h1>
-<p class="TopText">Preorders coming soon...</p>
+<p class="TopText">Preorders coming soon... <a class="TopLink" href="/preordering">Preorder Notice</a></p>
 
 <h2>Zachz Winner Merch</h2>
 <div class="ProdView">
@@ -302,6 +302,14 @@
 </div>
 
 <style>
+    .TopLink {
+        color: #070f69;
+    }
+
+    .TopLink:hover {
+        text-decoration: underline 2px;
+    }
+
     h1 {
         color: #000;
         font-family: "Roboto Flex";
