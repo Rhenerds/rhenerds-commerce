@@ -1,5 +1,5 @@
 import { mdsvex } from 'mdsvex';
-import adapter from '@sveltejs/adapter-vercel';
+import adapter from '@sveltejs/adapter-netlify';
 import { vitePreprocess } from '@sveltejs/vite-plugin-svelte';
 
 const mdsvexOptions = {
@@ -11,7 +11,7 @@ const config = {
 	// Consult https://svelte.dev/docs/kit/integrations
 	// for more information about preprocessors
 	preprocess: [vitePreprocess(), mdsvex(mdsvexOptions)],
-	kit: { adapter: adapter() },
+	kit: { adapter: adapter( {edge: true} ) },
 	extensions: ['.svelte', '.svx', '.md']
 };
 
