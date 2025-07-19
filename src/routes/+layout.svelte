@@ -40,6 +40,7 @@
 			<a href="/" class="NavChoice">Home</a>
 			<a href="/catalog" class="NavChoice">Catalog</a>
 			<a href="/about" class="NavChoice">About Us</a>
+			<a href="/cart" class="NavChoice">Cart</a>
 		</div>
 		<div class="SearchBar">
 			<label for="SearchBar">Search</label>
