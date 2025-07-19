@@ -28,6 +28,7 @@ export const load: PageServerLoad = async ({ params, fetch, url }) => {
     return {
         content: postContent,
         meta: postMeta,
-        source: source
+        source: source,
+        slug: params.slug,
     };
 };

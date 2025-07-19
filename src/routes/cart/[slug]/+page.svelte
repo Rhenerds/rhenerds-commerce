@@ -39,7 +39,7 @@
   }
 </script>
 
-<div class="min-h-screen bg-gradient-to-br from-purple-600 to-indigo-800 flex flex-col items-center justify-center p-4 font-sans text-gray-900">
+<div class="flex flex-col items-center justify-center p-4 font-sans text-gray-900">
   <div class="bg-white p-8 rounded-xl shadow-2xl text-center max-w-md w-full">
 
     <!-- Display confirmation/error message and product info immediately -->
