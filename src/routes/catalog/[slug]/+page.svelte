@@ -101,7 +101,7 @@
 		<p class="ProdText">Subtotal: {data.meta.price}</p>
 			{#if data.meta.linkstate === 'PO'}
 				<div class="BuyButton">
-					<a class="BuyText" href="{data.meta.link}">Preorder (Doku)</a>
+					<a class="BuyText" href="/cart/{data.slug}">Add to cart</a>
 				</div>
 			{/if}
 			{#if data.meta.linkstate === 'OTS'}
