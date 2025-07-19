@@ -1,12 +1,12 @@
 ---
-title: test product 2
+title: test product 3
 description: meow
 fandom: 'YonKaGor'
 type: "Keychain"
 published: true
 price: 'Rp 50.000,00'
 link: 'https://google.com'
-linkstate: 'OTS'
+linkstate: 'SO'
 images:
 - '/productmedia/CoralGlassesKeychainMockup.png'
 - '/productmedia/RoryKnight.png'
