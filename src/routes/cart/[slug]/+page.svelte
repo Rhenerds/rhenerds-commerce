@@ -3,8 +3,13 @@
   import type { PageData } from './$types'; // No ActionData needed as no form actions
   import { goto } from '$app/navigation'; // Import goto for navigation
 
-  // Props passed from +page.server.ts (data)
-  export let data: PageData;
+  
+  interface Props {
+    // Props passed from +page.server.ts (data)
+    data: PageData;
+  }
+
+  let { data }: Props = $props();
 
   // Extract data directly from the loaded data prop
   const productTitle = data.productTitle;
