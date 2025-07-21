@@ -111,11 +111,31 @@ export const load: PageServerLoad = async ({ locals, fetch }) => {
   // Form the enriched cart array
   const enrichedCart: EnrichedCartItem[] = enrichCart(rawCart, productsFromApi);
 
+  let totalPrice = 0;
+  for (const item of enrichedCart) {
+    if (item.linkstate === 'PO') {
+      const priceAsNumber = parseRupiahToNumber(item.price);
+      totalPrice += priceAsNumber * item.quantity;
+    }
+  }
+
   return {
     cart: enrichedCart,
+    totalPrice: totalPrice
   };
 };
 
+
+function calculateTotalPrice(enrichedCart: EnrichedCartItem[]): number {
+  let total = 0;
+  for (const item of enrichedCart) {
+    if (item.linkstate === 'PO') { // Only include 'PO' products in total
+      const priceAsNumber = parseRupiahToNumber(item.price);
+      total += priceAsNumber * item.quantity;
+    }
+  }
+  return total;
+}
 /**
  * Server-side actions to handle cart modifications.
  */
@@ -157,8 +177,9 @@ export const actions: Actions = {
       console.error('Error fetching product data for increment action:', error);
     }
     const enrichedCart = enrichCart(cart, productsFromApi);
+    const totalPrice = calculateTotalPrice(enrichedCart); // Calculate total price
 
-    return { success: true, cart: enrichedCart };
+    return { success: true, cart: enrichedCart, totalPrice: totalPrice };
   },
 
   // Action to decrement a product's quantity in the cart
@@ -200,8 +221,9 @@ export const actions: Actions = {
       console.error('Error fetching product data for decrement action:', error);
     }
     const enrichedCart = enrichCart(cart, productsFromApi);
+    const totalPrice = calculateTotalPrice(enrichedCart); // Calculate total price
 
-    return { success: true, cart: enrichedCart };
+    return { success: true, cart: enrichedCart, totalPrice: totalPrice };
   },
 
   // Action to remove a product completely from the cart
@@ -234,8 +256,9 @@ export const actions: Actions = {
       console.error('Error fetching product data for remove action:', error);
     }
     const enrichedCart = enrichCart(cart, productsFromApi);
+    const totalPrice = calculateTotalPrice(enrichedCart); // Calculate total price
 
-    return { success: true, cart: enrichedCart };
+    return { success: true, cart: enrichedCart, totalPrice: totalPrice };
   },
 
   // Action to edit a product's quantity to a specific value
@@ -284,12 +307,13 @@ export const actions: Actions = {
       console.error('Error fetching product data for edit action:', error);
     }
     const enrichedCart = enrichCart(cart, productsFromApi);
+    const totalPrice = calculateTotalPrice(enrichedCart); // Calculate total price
 
-    return { success: true, cart: enrichedCart };
+    return { success: true, cart: enrichedCart, totalPrice: totalPrice };
   },
 
   // Action to clear the entire cart
-  clearCart: async ({ cookies }) => {
+  clearCart: async ({ cookies, fetch }) => { // Added fetch here to get products for enrichment
     // Set the cookie to an empty array
     cookies.set(CART_COOKIE_NAME, JSON.stringify([]), {
       path: '/',
@@ -298,11 +322,24 @@ export const actions: Actions = {
       sameSite: 'lax',
     });
 
-    return { success: true, cart: [] }; // Return empty cart
+    // Even though cart is empty, enrich it to get correct structure for client
+    let productsFromApi: ApiProduct[] = [];
+    try {
+      const apiResponse = await fetch('/api/productquery');
+      if (apiResponse.ok) {
+        productsFromApi = await apiResponse.json();
+      }
+    } catch (error) {
+      console.error('Error fetching product data for clearCart action:', error);
+    }
+    const enrichedCart = enrichCart([], productsFromApi); // Enrich empty cart
+    const totalPrice = calculateTotalPrice(enrichedCart); // Will be 0
+
+    return { success: true, cart: enrichedCart, totalPrice: totalPrice };
   },
 
   // Placeholder for checkout logic
-  checkout: async ({ cookies, locals }) => {
+  checkout: async ({ cookies, locals, fetch }) => { // Added fetch here
     // In a real application, you would process the order here.
     // For this example, we'll just clear the cart after "checkout".
     const rawCart = locals.cart; // Get the raw cart before clearing
@@ -315,6 +352,19 @@ export const actions: Actions = {
       sameSite: 'lax',
     });
 
-    return { success: true, message: 'Checkout successful!', cart: [] };
+    // After checkout, the cart is empty, so total price is 0
+    let productsFromApi: ApiProduct[] = [];
+    try {
+      const apiResponse = await fetch('/api/productquery');
+      if (apiResponse.ok) {
+        productsFromApi = await apiResponse.json();
+      }
+    } catch (error) {
+      console.error('Error fetching product data for checkout action:', error);
+    }
+    const enrichedCart = enrichCart([], productsFromApi); // Enrich empty cart
+    const totalPrice = calculateTotalPrice(enrichedCart); // Will be 0
+
+    return { success: true, message: 'Checkout successful!', cart: enrichedCart, totalPrice: totalPrice };
   }
 };
