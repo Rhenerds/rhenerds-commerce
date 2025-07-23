@@ -338,33 +338,4 @@ export const actions: Actions = {
     return { success: true, cart: enrichedCart, totalPrice: totalPrice };
   },
 
-  // Placeholder for checkout logic
-  checkout: async ({ cookies, locals, fetch }) => { // Added fetch here
-    // In a real application, you would process the order here.
-    // For this example, we'll just clear the cart after "checkout".
-    const rawCart = locals.cart; // Get the raw cart before clearing
-    console.log('Checkout initiated with raw cart:', rawCart); // Log for demonstration
-
-    cookies.set(CART_COOKIE_NAME, JSON.stringify([]), {
-      path: '/',
-      maxAge: 60 * 60 * 24 * 30,
-      httpOnly: true,
-      sameSite: 'lax',
-    });
-
-    // After checkout, the cart is empty, so total price is 0
-    let productsFromApi: ApiProduct[] = [];
-    try {
-      const apiResponse = await fetch('/api/productquery');
-      if (apiResponse.ok) {
-        productsFromApi = await apiResponse.json();
-      }
-    } catch (error) {
-      console.error('Error fetching product data for checkout action:', error);
-    }
-    const enrichedCart = enrichCart([], productsFromApi); // Enrich empty cart
-    const totalPrice = calculateTotalPrice(enrichedCart); // Will be 0
-
-    return { success: true, message: 'Checkout successful!', cart: enrichedCart, totalPrice: totalPrice };
-  }
 };
