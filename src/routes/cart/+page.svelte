@@ -181,10 +181,31 @@
     <div class="checkout">
         <h2>Shopping summary</h2>
         <p class="totalprice">Total: {formatNumberToRupiah(updatedPrice)}</p>
+        <a href="/cart/checkout" class="checkoutbutton">Checkout</a>
     </div>
 </div>
 
 <style>
+    .checkoutbutton {
+        margin-top: 10px;
+        color: #000;
+        font-family: "Roboto Flex";
+        font-size: 23px;
+        font-style: normal;
+        font-weight: 340;
+        line-height: 107%; /* 18px */
+        letter-spacing: -0.6px;
+        width: calc(100% - 40px);
+        background-color: #ee82ee;
+        height: 50px;
+        border-radius: 5px;
+        display: flex;
+        margin: 20px;
+        text-align: center;
+        justify-content: center;
+        align-items: center;
+    }
+
     .clearspace {
         width: calc(100% - 120px);
     }
