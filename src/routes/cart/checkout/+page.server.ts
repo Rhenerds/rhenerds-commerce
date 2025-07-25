@@ -1,4 +1,5 @@
 // src/routes/cart/+page.ts
+import { redirect } from '@sveltejs/kit';
 import type { PageServerLoad, Actions } from './$types';
 
 interface CartItemCookie {
@@ -142,6 +143,8 @@ export const actions: Actions = {
     const num = data.get('phone') as string
     const email = data.get('email') as string
 
+    var redirlink: string
+
     let rawCart: CartItemCookie[] = locals.cart || []; // Initialize with locals.cart
 
     // If locals.cart is empty or null/undefined, try to get from 'user_cart' cookie
@@ -203,5 +206,20 @@ export const actions: Actions = {
         })
       }
     )
+
+    if (response.ok) {
+      const responseData = await response.json()
+      console.log(responseData)
+      if (responseData.result === "SUCCESS") {
+        redirlink = responseData.link
+      } else {
+        redirlink = "/cart/checkout?r=erlink"
+      }
+    } else {
+      redirlink = "/cart/checkout?r=erserv"
+    }
+
+    return redirect(303, redirlink)
   }
+  
 };
