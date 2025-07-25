@@ -53,39 +53,6 @@ function parseRupiahToNumber(rupiahString: string): number {
   return parseFloat(cleanedString);
 }
 
-function formatNumberToRupiah(num: number): string {
-    if (isNaN(num) || !isFinite(num)) {
-        return "Rp 0,00"; // Handle invalid numbers gracefully
-    }
-
-    // Ensure two decimal places, using toFixed for consistent rounding
-    const parts = num.toFixed(2).split('.');
-    let integerPart = parts[0];
-    const decimalPart = parts.length > 1 ? parts[1] : '00';
-
-    // Add thousands separators (dots) to the integer part
-    let formattedIntegerPart = '';
-    for (let i = integerPart.length - 1; i >= 0; i--) {
-        formattedIntegerPart = integerPart[i] + formattedIntegerPart;
-        if (i > 0 && (integerPart.length - i) % 3 === 0) {
-        formattedIntegerPart = '.' + formattedIntegerPart;
-        }
-    }
-
-    return `Rp ${formattedIntegerPart},${decimalPart}`;
-}
-
-function handleQuantityChange(event: Event) {
-    const input = event.target as HTMLInputElement;
-    // Find the closest form element
-    const form = input.closest('form');
-    if (form) {
-        // Programmatically submit the form
-        // requestSubmit() is preferred as it mimics a button click, triggering validation etc.
-        form.requestSubmit();
-    }
-    }
-
 function enrichCart(rawCart: CartItemCookie[], productsFromApi: ApiProduct[]): EnrichedCartItem[] {
   // First, map the raw cart items to enriched items, providing fallbacks for missing products.
   // Then, filter this mapped array to only include products that are found AND have 'PO' linkstate.
@@ -168,32 +135,73 @@ export const load: PageServerLoad = async ({ fetch, locals, cookies }) => {
 
 export const actions: Actions = {
 // Placeholder for checkout logic
-  checkout: async ({ cookies, locals, fetch }) => { // Added fetch here
-    // In a real application, you would process the order here.
-    // For this example, we'll just clear the cart after "checkout".
-    const rawCart = locals.cart; // Get the raw cart before clearing
-    console.log('Checkout initiated with raw cart:', rawCart); // Log for demonstration
+  checkout: async ({ request, cookies, locals, fetch }) => { // Added fetch here
+    const data = await request.formData();
 
-    cookies.set(CART_COOKIE_NAME, JSON.stringify([]), {
-      path: '/',
-      maxAge: 60 * 60 * 24 * 30,
-      httpOnly: true,
-      sameSite: 'lax',
-    });
+    const nick = data.get('nick') as string
+    const num = data.get('phone') as string
+    const email = data.get('email') as string
 
-    // After checkout, the cart is empty, so total price is 0
+    let rawCart: CartItemCookie[] = locals.cart || []; // Initialize with locals.cart
+
+    // If locals.cart is empty or null/undefined, try to get from 'user_cart' cookie
+    if (!rawCart || rawCart.length === 0) {
+      const userCartCookie = cookies.get(CART_COOKIE_NAME);
+      if (userCartCookie) {
+        try {
+          const parsedUserCart: CartItemCookie[] = JSON.parse(userCartCookie);
+          // Basic validation for the parsed cookie content
+          if (Array.isArray(parsedUserCart) && parsedUserCart.every(item => typeof item === 'object' && item !== null && 'slug' in item && 'quantity' in item)) {
+            rawCart = parsedUserCart;
+            console.log('Cart loaded from user_cart cookie:', rawCart);
+          } else {
+            console.warn('Invalid user_cart cookie format, ignoring:', userCartCookie);
+            cookies.delete('user_cart', { path: '/' }); // Optionally clear invalid cookie
+          }
+        } catch (e) {
+          console.error('Error parsing user_cart cookie:', e);
+          cookies.delete('user_cart', { path: '/' }); // Optionally clear invalid cookie
+        }
+      }
+    }
+
+    // Fetch products from API (as you already have)
     let productsFromApi: ApiProduct[] = [];
     try {
       const apiResponse = await fetch('/api/productquery');
       if (apiResponse.ok) {
         productsFromApi = await apiResponse.json();
+      } else {
+        console.error('Failed to fetch products:', apiResponse.statusText);
       }
     } catch (error) {
-      console.error('Error fetching product data for checkout action:', error);
+      console.error('Error fetching product data in load function:', error);
     }
-    const enrichedCart = enrichCart([], productsFromApi); // Enrich empty cart
-    const totalPrice = calculateTotalPrice(enrichedCart); // Will be 0
 
-    return { success: true, message: 'Checkout successful!', cart: enrichedCart, totalPrice: totalPrice };
+    // Enrich the cart with product details (using your existing function)
+    const enrichedCart = enrichCart(rawCart, productsFromApi);
+
+    // Calculate total price (using your existing function)
+    const totalPrice = calculateTotalPrice(enrichedCart);
+
+    const cartJson = JSON.stringify(enrichedCart);
+
+    const response = await fetch(
+      '/api/checkout',
+      {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Accept': 'application/json'
+        },
+        body: JSON.stringify({
+          nick,
+          num,
+          email,
+          cartJson,
+          totalPrice
+        })
+      }
+    )
   }
 };

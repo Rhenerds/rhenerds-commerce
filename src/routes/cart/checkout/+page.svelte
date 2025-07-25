@@ -43,13 +43,12 @@
     <div class="infoview">
         <p class="checkouttext">Biodata:</p>
         <form method="POST" action="?/checkout">
-            <input type="hidden" name="cart" value={JSON.stringify(data.cart)} />
             <label for="nick">Nickname (required):</label>
-            <input type="text" id="nick" placeholder="eg: John Doe" required/>
+            <input type="text" id="nick" name="nick" placeholder="eg: John Doe" required/>
             <label for="phone">Phone number (required):</label>
-            <input type="number" id="phone" placeholder="eg: 6287812345678" required/>
+            <input type="tel" id="phone" name="phone" placeholder="eg: 6287812345678" required/>
             <label for="email">Email (required): </label>
-            <input type="email" id="email" placeholder="eg: johndoe@email.com" required/>
+            <input type="email" id="email" name="email" placeholder="eg: johndoe@email.com" required/>
             <button type="submit">Payment (DOKU)</button>
         </form>
     </div>
