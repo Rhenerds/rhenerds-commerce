@@ -41,6 +41,8 @@
         {/each}
     </div>
     <div class="infoview">
+        <p class="checkouttext">Amount Due:</p>
+        <p class="checkouttext">{formatNumberToRupiah(data.totalPrice)}</p>
         <p class="checkouttext">Biodata:</p>
         <form method="POST" action="?/checkout">
             <label for="nick">Nickname (required):</label>
