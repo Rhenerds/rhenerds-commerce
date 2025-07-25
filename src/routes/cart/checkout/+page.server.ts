@@ -83,9 +83,10 @@ function enrichCart(rawCart: CartItemCookie[], productsFromApi: ApiProduct[]): E
 // ... (your existing type definitions, parseRupiahToNumber, enrichCart, calculateTotalPrice) ...
 
 // The load function for your checkout page
-export const load: PageServerLoad = async ({ fetch, locals, cookies }) => {
+export const load: PageServerLoad = async ({ fetch, locals, cookies, url }) => {
   // Access the cart data that was parsed and attached by hooks.server.ts
   let rawCart: CartItemCookie[] = locals.cart || []; // Initialize with locals.cart
+  const errStatus = url.searchParams.get('r');
 
   // If locals.cart is empty or null/undefined, try to get from 'user_cart' cookie
   if (!rawCart || rawCart.length === 0) {
@@ -131,6 +132,7 @@ export const load: PageServerLoad = async ({ fetch, locals, cookies }) => {
   return {
     cart: enrichedCart, // This is the cart content you want in +page.svelte
     totalPrice: totalPrice,
+    errStatus: errStatus,
   };
 };
 
