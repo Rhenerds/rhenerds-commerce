@@ -1,6 +1,7 @@
 import { CLIENTID, SECRET } from "$env/static/private"
 import { randomUUID, createHash, createHmac } from 'crypto'
 import { url } from "$lib/config"
+import { json } from "@sveltejs/kit"
 
 const clientid = CLIENTID
 
@@ -52,102 +53,114 @@ function mapEnrichedCartToDokuLineItems(
 }
 
 async function processCheckout(cart:string, price: string, name: string, phone: string, email: string) {
-    const jsoncart: EnrichedCartItem[] = JSON.parse(cart)
+  var result: string, link: string, statuscode: number
 
-    const processedjson = mapEnrichedCartToDokuLineItems(jsoncart, url)
-    
-    const truuid = randomUUID()
-    const pisoTimestamp: string = new Date().toISOString();
-    const isoTimestamp: string = pisoTimestamp.substring(0, pisoTimestamp.indexOf('.')) + 'Z';
+  const jsoncart: EnrichedCartItem[] = JSON.parse(cart)
 
-    const invoice_number = "INV-" + isoTimestamp
+  const processedjson = mapEnrichedCartToDokuLineItems(jsoncart, url)
+  
+  const truuid = randomUUID()
+  const pisoTimestamp: string = new Date().toISOString();
+  const isoTimestamp: string = pisoTimestamp.substring(0, pisoTimestamp.indexOf('.')) + 'Z';
 
-    const reqbody = {
-        "order": {
-            "amount": price,
-            "invoice_number": invoice_number,
-            "currency": "IDR",
-            "callback_url_result": url + "summary/",
-            "callback_url": url + "cart/checkout/",
-            "language":"EN",
-            "auto_redirect":true,
-            "disable_retry_payment" :true,
-            "recover_abandoned_cart": true,
-            "expired_recovered_cart":2,
-            "line_items": processedjson
-        },
-        "payment": {
-            "payment_due_date": 60,
-            "type" : "SALE",
-            "payment_method_types": [
-                "EMONEY_SHOPEEPAY",
-                "EMONEY_OVO",
-                "EMONEY_DANA",
-                "EMONEY_DOKU",
-                "EMONEY_LINKAJA",
-                "QRIS"
-            ]
-        },
-        "customer":{
-            "name":name,
-            "phone":phone,
-            "email": email
-        }
-    }
+  const invoice_number = "INV-" + isoTimestamp
 
-    const stringreqbody = JSON.stringify(reqbody)
-    console.log(stringreqbody)
+  const reqbody = {
+      "order": {
+          "amount": price,
+          "invoice_number": invoice_number,
+          "currency": "IDR",
+          "callback_url_result": url + "summary/",
+          "callback_url": url + "cart/checkout/",
+          "language":"EN",
+          "auto_redirect":true,
+          "disable_retry_payment" :true,
+          "recover_abandoned_cart": true,
+          "expired_recovered_cart":2,
+          "line_items": processedjson
+      },
+      "payment": {
+          "payment_due_date": 60,
+          "type" : "SALE",
+          "payment_method_types": [
+              "EMONEY_SHOPEEPAY",
+              "EMONEY_OVO",
+              "EMONEY_DANA",
+              "EMONEY_DOKU",
+              "EMONEY_LINKAJA",
+              "QRIS",
+              "VIRTUAL_ACCOUNT_DOKU"
+          ]
+      },
+      "customer":{
+          "name":name,
+          "phone":phone,
+          "email": email
+      }
+  }
 
-    const hdigest = createHash('sha256') // Uses createHash, not createHmac
-    .update(JSON.stringify(reqbody))
-    .digest('base64');
+  const stringreqbody = JSON.stringify(reqbody)
+  console.log(stringreqbody)
 
-    console.log(hdigest)
+  const hdigest = createHash('sha256') // Uses createHash, not createHmac
+  .update(JSON.stringify(reqbody))
+  .digest('base64');
 
-    const signpayload = "Client-Id:"+ clientid +"\nRequest-Id:"+ truuid +"\nRequest-Timestamp:"+ isoTimestamp +"\nRequest-Target:"+ apitarget +"\nDigest:"+ hdigest
+  console.log(hdigest)
 
-    const signature = createHmac('sha256', SECRET)
-    .update(signpayload)
-    .digest('base64')
+  const signpayload = "Client-Id:"+ clientid +"\nRequest-Id:"+ truuid +"\nRequest-Timestamp:"+ isoTimestamp +"\nRequest-Target:"+ apitarget +"\nDigest:"+ hdigest
 
-    console.log(signature)
+  const signature = createHmac('sha256', SECRET)
+  .update(signpayload)
+  .digest('base64')
 
-    const apiresponse = await fetch(
-        apiurl, 
-        {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-                'Accept': 'application/json',
-                'Client-Id': clientid,
-                'Request-Id': truuid,
-                'Request-Timestamp': isoTimestamp,
-                'Signature': 'HMACSHA256='+signature
-            },
-            body: JSON.stringify(reqbody)
-        }
-    )
+  console.log(signature)
 
-    if (apiresponse.ok) {
-        const responseData = await apiresponse.json();
-        console.log('Doku API success response (JSON):', responseData); // Log the parsed JSON object
+  const apiresponse = await fetch(
+      apiurl, 
+      {
+          method: 'POST',
+          headers: {
+              'Content-Type': 'application/json',
+              'Accept': 'application/json',
+              'Client-Id': clientid,
+              'Request-Id': truuid,
+              'Request-Timestamp': isoTimestamp,
+              'Signature': 'HMACSHA256='+signature
+          },
+          body: JSON.stringify(reqbody)
+      }
+  )
 
-        // ... (rest of your success handling) ...
+  if (apiresponse.ok) {
+      const responseData = await apiresponse.json();
+      console.log('Doku API success response (JSON):', responseData); // Log the parsed JSON object
+      if (responseData.message[0] === 'SUCCESS') {
+        result = "SUCCESS"
+        link = responseData.response.payment.url
+        statuscode = 200
+      } else {
+        result = "FAILURE"
+        link = "NONE"
+        statuscode = 500
+      }
 
-    } else {
-        const errorData = await apiresponse.json();
-        console.error('Doku API error response (JSON):', apiresponse.status, errorData); // Log the parsed JSON error object
+  } else {
+      const errorData = await apiresponse.json();
+      console.error('Doku API error response (JSON):', apiresponse.status, errorData); // Log the parsed JSON error object
+      result = "FAILURE"
+      link = "NONE"
+      statuscode = 500
 
-        // ... (rest of your error handling) ...
-    }
+  }
 
-    
+  return json( {"result": result, "link": link}, {"status": statuscode} )    
 
 }
 
 export async function POST( {request}) {
-    const { nick, num, email, cartJson, totalPrice }  = await request.json()
-    const apiresponse = await processCheckout(cartJson, totalPrice, nick, num, email)
-
+  const { nick, num, email, cartJson, totalPrice }  = await request.json()
+  const apiresponse = await processCheckout(cartJson, totalPrice, nick, num, email)
+  return apiresponse
 
 }
