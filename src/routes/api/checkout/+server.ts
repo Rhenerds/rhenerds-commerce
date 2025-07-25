@@ -70,7 +70,7 @@ async function processCheckout(cart:string, price: string, name: string, phone: 
           "amount": price,
           "invoice_number": invoice_number,
           "currency": "IDR",
-          "callback_url_result": url + "summary/",
+          "callback_url_result": url + "summary?inv=" + encodeURI(invoice_number),
           "callback_url": url + "cart/checkout/",
           "language":"EN",
           "auto_redirect":true,
@@ -106,15 +106,11 @@ async function processCheckout(cart:string, price: string, name: string, phone: 
   .update(JSON.stringify(reqbody))
   .digest('base64');
 
-  console.log(hdigest)
-
   const signpayload = "Client-Id:"+ clientid +"\nRequest-Id:"+ truuid +"\nRequest-Timestamp:"+ isoTimestamp +"\nRequest-Target:"+ apitarget +"\nDigest:"+ hdigest
 
   const signature = createHmac('sha256', SECRET)
   .update(signpayload)
   .digest('base64')
-
-  console.log(signature)
 
   const apiresponse = await fetch(
       apiurl, 
