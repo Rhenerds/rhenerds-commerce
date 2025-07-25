@@ -43,16 +43,26 @@
     <div class="infoview">
         <p class="checkouttext">Amount Due:</p>
         <p class="checkouttext">{formatNumberToRupiah(data.totalPrice)}</p>
-        <p class="checkouttext">Biodata:</p>
-        <form method="POST" action="?/checkout">
-            <label for="nick">Nickname (required):</label>
-            <input type="text" id="nick" name="nick" placeholder="eg: John Doe" required/>
-            <label for="phone">Phone number (required):</label>
-            <input type="tel" id="phone" name="phone" placeholder="eg: 6287812345678" required/>
-            <label for="email">Email (required): </label>
-            <input type="email" id="email" name="email" placeholder="eg: johndoe@email.com" required/>
-            <button type="submit">Payment (DOKU)</button>
-        </form>
+        {#if data.cart.length > 0}
+            <p class="checkouttext">Biodata:</p>
+            <form method="POST" action="?/checkout">
+                <label for="nick">Nickname (required):</label>
+                <input type="text" id="nick" name="nick" placeholder="eg: John Doe" required/>
+                <label for="phone">Phone number (required):</label>
+                <input type="tel" id="phone" name="phone" placeholder="eg: 6287812345678" required/>
+                <label for="email">Email (required): </label>
+                <input type="email" id="email" name="email" placeholder="eg: johndoe@email.com" required/>
+                <button type="submit">Payment (DOKU)</button>
+            </form>
+        {:else}
+            <p class="checkouttext">Make sure to have items in your cart</p>
+        {/if}
+        {#if data.errStatus === "erlink"}
+            <p class="errtext">Failed to get payment page from Doku, check if your contact information is valid. If problem persists please contact us.</p>
+        {/if}
+        {#if data.errStatus === "erserv"}
+            <p class="errtext">Nerds Commerce backend failed to generate proper response. Please contact us.</p>
+        {/if}
     </div>
 </div>
 
@@ -89,6 +99,17 @@
     }
 
     label {
+        margin-top: 10px;
+        color: #000;
+        font-family: "Roboto Flex";
+        font-size: 23px;
+        font-style: normal;
+        font-weight: 340;
+        line-height: 107%; /* 18px */
+        letter-spacing: -0.6px;
+    }
+
+    .errtext {
         margin-top: 10px;
         color: #000;
         font-family: "Roboto Flex";

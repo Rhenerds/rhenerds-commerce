@@ -17,25 +17,16 @@
     let cartItems: EnrichedCartItem[] = $state(data?.cart || []);
     let updatedPrice: number = $state(data?.totalPrice || 0)
 
+    let poItemsLength = $derived(() => cartItems.filter(item => item.linkstate === 'PO').length);
+
     $effect(() => {
     if (form?.success && form?.cart !== undefined) {
         cartItems = form.cart;
-        // Directly update totalPrice from the form data returned by the action
         if (form?.totalPrice !== undefined) {
             updatedPrice = form.totalPrice;
         }
         }
     });
-
-    function parseRupiahToNumber(rupiahString: string): number {
-    if (!rupiahString) {
-      return 0;
-    }
-    // Remove "Rp ", remove thousands separators (.), replace decimal comma (,) with a dot (.)
-    const cleanedString = rupiahString.replace('Rp ', '').replace(/\./g, '').replace(',', '.');
-    return parseFloat(cleanedString);
-
-  }
 
   function formatNumberToRupiah(num: number): string {
     if (isNaN(num) || !isFinite(num)) {
@@ -181,7 +172,11 @@
     <div class="checkout">
         <h2>Shopping summary</h2>
         <p class="totalprice">Total: {formatNumberToRupiah(updatedPrice)}</p>
-        <a href="/cart/checkout" class="checkoutbutton">Checkout</a>
+        {#if poItemsLength() > 0}
+            <a href="/cart/checkout" class="checkoutbutton">Checkout</a>
+        {:else}
+            <p class="checkoutbutton" >Nothing to checkout</p>
+        {/if}
     </div>
 </div>
 
