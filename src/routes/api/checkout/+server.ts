@@ -71,7 +71,7 @@ async function processCheckout(cart:string, price: string, name: string, phone: 
           "amount": price,
           "invoice_number": invoice_number,
           "currency": "IDR",
-          "callback_url_result": url + "summary?inv=" + invoice_number,
+          "callback_url_result": url + "summary?inv=" + invoice_number + "&refer=checkout",
           "callback_url": url + "cart/checkout/",
           "language":"EN",
           "auto_redirect":true,
