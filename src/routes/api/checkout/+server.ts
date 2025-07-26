@@ -62,15 +62,16 @@ async function processCheckout(cart:string, price: string, name: string, phone: 
   const truuid = randomUUID()
   const pisoTimestamp: string = new Date().toISOString();
   const isoTimestamp: string = pisoTimestamp.substring(0, pisoTimestamp.indexOf('.')) + 'Z';
+  const forInvoice:string = isoTimestamp.replace(/:/g, "")
 
-  const invoice_number = "INV-" + isoTimestamp
+  const invoice_number = "INV-" + forInvoice
 
   const reqbody = {
       "order": {
           "amount": price,
           "invoice_number": invoice_number,
           "currency": "IDR",
-          "callback_url_result": url + "summary?inv=" + encodeURI(invoice_number),
+          "callback_url_result": url + "summary?inv=" + invoice_number,
           "callback_url": url + "cart/checkout/",
           "language":"EN",
           "auto_redirect":true,
