@@ -26,7 +26,11 @@
         <strong>Shipping Costs:</strong> All shipping costs associated with your preorder are the sole responsibility of the consumer and will be clearly indicated at the time of purchase.
     </li>
     <li>
-        <strong>Refund Policy:</strong> All sales made through The Nerds Catalog are final. Products purchased are non-refundable. Please ensure you review your order carefully before completing your purchase.
+        <strong>Refund Policy:</strong> All sales made through The Nerds Catalog are final, and products purchased are generally non-refundable. However, exceptions apply under the following circumstances:
+        <ul>
+            <li>If a purchased product turns out to be **out of stock** after your order has been placed, you will be eligible for a full refund.</li>
+            <li>For specific pre-order items, a **partial refund** may become available after a predetermined date. For pre-orders subject to this condition, the partial refund option will be available starting **December 31st, 2025, at 12:00 PM GMT+7**, as indicated in the preorder notice on the site. Please ensure you review your order carefully before completing your purchase.</li>
+        </ul>
     </li>
     <li>
         <strong>Disclaimer of Warranties:</strong> The Nerds Catalog is provided on an "as is" and "as available" basis. We make no warranties, express or implied, regarding the operation of the website or the information, content, materials, or products included on this site.
@@ -45,7 +49,7 @@
     </li>
 </ol>
 
-<p>Last Updated 19 July 2025</p>
+<p>Last Updated 26 July 2025</p>
 
 <style>
     h1 {
