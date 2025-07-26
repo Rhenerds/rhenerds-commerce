@@ -8,8 +8,9 @@ async function getStatus(invoice_number:string) {
     var result: string
     var status: number
 
-    const apiurl = "https://api-sandbox.doku.com/orders/v1/status/" + invoice_number
-    const apitarget = "/orders/v1/status" + invoice_number
+    console.log("now checking: ", decodeURI(invoice_number))
+    const apiurl = "https://api.doku.com/orders/v1/status/" + invoice_number
+    const apitarget = "/orders/v1/status/" + invoice_number
 
     const truuid = randomUUID()
     const pisoTimestamp: string = new Date().toISOString();
@@ -41,6 +42,9 @@ async function getStatus(invoice_number:string) {
         console.log('Doku API success response (JSON):', responseData); // Log the parsed JSON object
         if (responseData.transaction.status === 'SUCCESS') {
             result = "SUCCESS"
+            console.log("YAYYYY")
+        } else if(responseData.transaction.status === 'PENDING') {
+            result = "PENDING"
         } else {
             result = "FAILURE"
         }
@@ -49,8 +53,15 @@ async function getStatus(invoice_number:string) {
     } else {
         const errorData = await apiresponse.json();
         console.error('Doku API error response (JSON):', apiresponse.status, errorData); // Log the parsed JSON error object
-        result = "FAILURE"
-        status = 500
+        if (errorData.error.code === "data_not_found") {
+            result = "NotFound"
+            status = 404
+            console.log("most likely we haven't received it")
+        } else {
+            result = "FAILURE"
+            status = 500
+            console.log("big oof")
+        }
 
     }
 
