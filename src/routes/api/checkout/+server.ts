@@ -3,10 +3,11 @@ import { randomUUID, createHash, createHmac } from 'crypto'
 import { url } from "$lib/config"
 import { json } from "@sveltejs/kit"
 import { Redis } from "@upstash/redis"
+import { REDIS_READWRITE } from "$env/static/private"
 
 const redis = new Redis({
   url: "https://glorious-mantis-30704.upstash.io",
-  token: env.REDIS_READWRITE,
+  token: REDIS_READWRITE,
 })
 
 
