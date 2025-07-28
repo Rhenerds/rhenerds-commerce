@@ -29,10 +29,11 @@ export async function load({ fetch }) {
 		error: string; 
 		values: { [key: string]: string | null } | null; 
 	} = await stocksresponse.json();
-
+	
 	const posts = preposts.map(item => {
 		if (item.slug) {
-			const stock = stockjson.values ? stockjson.values[item.slug] : null
+			const stock = stockjson.values ? Number(stockjson.values[item.slug]) : null
+			console.log(`Stock for ${item.slug}: ${stock}`)
 			return { ...item, stock: stock }
 		}
 		return item
