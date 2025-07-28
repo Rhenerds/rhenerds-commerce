@@ -197,7 +197,7 @@ async function processCheckout(cart:string, price: string, name: string, phone: 
             "line_items": processedjson
         },
         "payment": {
-            "payment_due_date": 60,
+            "payment_due_date": 15,
             "type" : "SALE",
             "payment_method_types": [
                 "EMONEY_SHOPEEPAY",
