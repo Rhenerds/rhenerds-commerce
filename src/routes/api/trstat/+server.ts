@@ -1,8 +1,8 @@
-import { env } from "$env/dynamic/private"
+import { CLIENTID, SECRET } from "$env/static/private"
 import { randomUUID, createHmac } from 'crypto'
 import { json } from "@sveltejs/kit"
 
-const clientid = env.CLIENTID
+const clientid = CLIENTID
 
 async function getStatus(invoice_number:string) {
     var result: string
@@ -18,7 +18,7 @@ async function getStatus(invoice_number:string) {
 
     const signpayload = "Client-Id:"+ clientid +"\nRequest-Id:"+ truuid +"\nRequest-Timestamp:"+ isoTimestamp +"\nRequest-Target:"+ apitarget
 
-    const signature = createHmac('sha256', env.SECRET)
+    const signature = createHmac('sha256', SECRET)
     .update(signpayload)
     .digest('base64')
 

@@ -1,10 +1,10 @@
 import { Redis } from "@upstash/redis"
-import { env } from "$env/dynamic/private"
+import { REDIS_READONLY } from "$env/static/private"
 import { json } from "@sveltejs/kit"
 
 const redis = new Redis({
   url: "https://glorious-mantis-30704.upstash.io",
-  token: env.REDIS_READONLY,
+  token: REDIS_READONLY,
 })
 
 async function queryKeys(keys: string[]) {
