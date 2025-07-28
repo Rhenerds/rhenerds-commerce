@@ -66,6 +66,9 @@
         {#if data.errStatus === "ercart"}
             <p class="errtext">Your cart contains an item or more, which it's in-cart quantity is more than the available stock.</p>
         {/if}
+        {#if data.errStatus === "existingcheckout"}
+            <p class="errtext">Please avoid clicking on checkout again if you've returned from the Doku checkout page. To edit your order, contact us to void your unpaid invoice, then submit another checkout request.</p>
+        {/if}
     </div>
 </div>
 
