@@ -2,7 +2,7 @@ import { env } from "$env/dynamic/private"
 import { randomUUID, createHash, createHmac } from 'crypto'
 import { url } from "$lib/config"
 import { json } from "@sveltejs/kit"
-import { Redis } from "@upstash/redis"
+import { Redis } from "@upstash/redis/cloudflare"
 
 const redis = new Redis({
   url: "https://glorious-mantis-30704.upstash.io",
