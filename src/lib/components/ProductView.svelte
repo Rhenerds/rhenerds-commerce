@@ -18,17 +18,14 @@
             <div class="ProdInfo">
             <p class="ProdText">{post.title}</p>
             <p class="ProdText" style="font-weight: 420;">{post.price}</p>
-            {#if post.linkstate === 'PO'}
-                <p class="ProdText">Preorder Open</p>
-            {/if}
-            {#if post.linkstate === 'OTS'}
-                <p class="ProdText">On The Spot</p>
-            {/if}
-            {#if post.linkstate === 'SO'}
-                <p class="ProdText">Sold Out</p>
-            {/if}
-            {#if post.linkstate === 'U'}
+            {#if post.linkstate === 'U' && post.stock === null}
                 <p class="ProdText">Unavailable</p>
+            {:else if Number(post.stock) <= 0 && post.linkstate === 'SO'}
+                <p class="ProdText">Sold Out</p>
+            {:else if post.linkstate === 'PO'}
+                <p class="ProdText">PO Open: {post.stock} Available</p>
+            {:else if post.linkstate === 'OTS'}
+                <p class="ProdText">OTS Open: {post.stock} Available</p>
             {/if}
             </div>
         </a>
