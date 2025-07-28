@@ -313,7 +313,46 @@ export const actions: Actions = {
     const enrichedCart = enrichCart(cart, productsFromApi);
     const totalPrice = calculateTotalPrice(enrichedCart); // Calculate total price
 
-    return { success: true, cart: enrichedCart, totalPrice: totalPrice };
+    const slugsToQueryForStock = enrichedCart
+        .filter(item => item.linkstate === 'PO') // Only get slugs for 'PO' items
+        .map(item => item.slug);
+
+    var finalEnrichedCart: EnrichedCartItem[] = []
+
+    let stockDataDict: { [key: string]: string | null } = {};
+
+    if (slugsToQueryForStock.length > 0) {
+      stockDataDict = await getStocks(fetch, slugsToQueryForStock)
+    }
+
+    for (var item of enrichedCart) {
+    let actualQuantity = item.quantity;
+    let itemStock: number | null = null; // Initialize to null
+
+    if (item.linkstate === 'PO') {
+        const rawStock = stockDataDict[item.slug];
+        // Convert stock string to number, defaulting to 0 if null/invalid
+        itemStock = Number(rawStock)
+
+        // Store the stock value on the item (even if it's null)
+        item.stock = itemStock;
+
+        // Modify cart quantity if it exceeds stock (only for 'PO' items)
+        if (itemStock !== null && actualQuantity > itemStock) {
+            actualQuantity = itemStock;
+        }
+        // If itemStock is null (invalid/missing stock data), we don't adjust quantity
+        // based on stock, it remains as per cart. You might want a different default behavior here.
+    } else {
+        // For non-'PO' items, stock might not be relevant or fetched,
+        // but we still add the property to keep the interface consistent.
+        item.stock = 0; 
+    }
+
+    finalEnrichedCart.push({ ...item, quantity: actualQuantity });
+  }
+
+    return { success: true, cart: finalEnrichedCart, totalPrice: totalPrice };
   },
 
   // Action to decrement a product's quantity in the cart
@@ -392,7 +431,46 @@ export const actions: Actions = {
     const enrichedCart = enrichCart(cart, productsFromApi);
     const totalPrice = calculateTotalPrice(enrichedCart); // Calculate total price
 
-    return { success: true, cart: enrichedCart, totalPrice: totalPrice };
+    const slugsToQueryForStock = enrichedCart
+        .filter(item => item.linkstate === 'PO') // Only get slugs for 'PO' items
+        .map(item => item.slug);
+
+    var finalEnrichedCart: EnrichedCartItem[] = []
+
+    let stockDataDict: { [key: string]: string | null } = {};
+
+    if (slugsToQueryForStock.length > 0) {
+      stockDataDict = await getStocks(fetch, slugsToQueryForStock)
+    }
+
+    for (var item of enrichedCart) {
+    let actualQuantity = item.quantity;
+    let itemStock: number | null = null; // Initialize to null
+
+    if (item.linkstate === 'PO') {
+        const rawStock = stockDataDict[item.slug];
+        // Convert stock string to number, defaulting to 0 if null/invalid
+        itemStock = Number(rawStock)
+
+        // Store the stock value on the item (even if it's null)
+        item.stock = itemStock;
+
+        // Modify cart quantity if it exceeds stock (only for 'PO' items)
+        if (itemStock !== null && actualQuantity > itemStock) {
+            actualQuantity = itemStock;
+        }
+        // If itemStock is null (invalid/missing stock data), we don't adjust quantity
+        // based on stock, it remains as per cart. You might want a different default behavior here.
+    } else {
+        // For non-'PO' items, stock might not be relevant or fetched,
+        // but we still add the property to keep the interface consistent.
+        item.stock = 0; 
+    }
+
+    finalEnrichedCart.push({ ...item, quantity: actualQuantity });
+  }
+
+    return { success: true, cart: finalEnrichedCart, totalPrice: totalPrice };
   },
 
   // Action to edit a product's quantity to a specific value
@@ -471,7 +549,46 @@ export const actions: Actions = {
     const enrichedCart = enrichCart([], productsFromApi); // Enrich empty cart
     const totalPrice = calculateTotalPrice(enrichedCart); // Will be 0
 
-    return { success: true, cart: enrichedCart, totalPrice: totalPrice };
+    const slugsToQueryForStock = enrichedCart
+        .filter(item => item.linkstate === 'PO') // Only get slugs for 'PO' items
+        .map(item => item.slug);
+
+    var finalEnrichedCart: EnrichedCartItem[] = []
+
+    let stockDataDict: { [key: string]: string | null } = {};
+
+    if (slugsToQueryForStock.length > 0) {
+      stockDataDict = await getStocks(fetch, slugsToQueryForStock)
+    }
+
+    for (var item of enrichedCart) {
+    let actualQuantity = item.quantity;
+    let itemStock: number | null = null; // Initialize to null
+
+    if (item.linkstate === 'PO') {
+        const rawStock = stockDataDict[item.slug];
+        // Convert stock string to number, defaulting to 0 if null/invalid
+        itemStock = Number(rawStock)
+
+        // Store the stock value on the item (even if it's null)
+        item.stock = itemStock;
+
+        // Modify cart quantity if it exceeds stock (only for 'PO' items)
+        if (itemStock !== null && actualQuantity > itemStock) {
+            actualQuantity = itemStock;
+        }
+        // If itemStock is null (invalid/missing stock data), we don't adjust quantity
+        // based on stock, it remains as per cart. You might want a different default behavior here.
+    } else {
+        // For non-'PO' items, stock might not be relevant or fetched,
+        // but we still add the property to keep the interface consistent.
+        item.stock = 0; 
+    }
+
+    finalEnrichedCart.push({ ...item, quantity: actualQuantity });
+  }
+
+    return { success: true, cart: finalEnrichedCart, totalPrice: totalPrice };
   },
 
 };
