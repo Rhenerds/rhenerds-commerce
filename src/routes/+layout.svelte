@@ -65,6 +65,7 @@
 
 <style>
 	@import url('/assets/roboto.css');
+	@import url('/assets/inter.css');
 
 	.HeaderBox {
 		display: flex;
