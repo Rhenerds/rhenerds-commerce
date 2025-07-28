@@ -1,4 +1,4 @@
-import { CLIENTID, SECRET } from "$env/static/private"
+import { env } from "$env/dynamic/private"
 import { randomUUID, createHash, createHmac } from 'crypto'
 import { url } from "$lib/config"
 import { json } from "@sveltejs/kit"
@@ -11,7 +11,7 @@ const redis = new Redis({
 })
 
 
-const clientid = CLIENTID
+const clientid = env.CLIENTID
 
 const apiurl = "https://api.doku.com/checkout/v1/payment"
 const apitarget = "/checkout/v1/payment"
@@ -226,7 +226,7 @@ async function processCheckout(cart:string, price: string, name: string, phone: 
 
     const signpayload = "Client-Id:"+ clientid +"\nRequest-Id:"+ truuid +"\nRequest-Timestamp:"+ isoTimestamp +"\nRequest-Target:"+ apitarget +"\nDigest:"+ hdigest
 
-    const signature = createHmac('sha256', SECRET)
+    const signature = createHmac('sha256', env.SECRET)
     .update(signpayload)
     .digest('base64')
 
