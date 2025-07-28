@@ -25,10 +25,18 @@
             <p class="ProdText">{post.title}</p>
             <p class="ProdText" style="font-weight: 420;">{post.price}</p>
             {#if post.linkstate === 'PO'}
-                <p class="ProdText">Preorder Open</p>
+                {#if Number(post.stock) <= 0 }
+                <p class="ProdText">Sold Out</p>
+                {:else}
+                <p class="ProdText">PO Available: {post.stock}</p>
+                {/if}
             {/if}
             {#if post.linkstate === 'OTS'}
-                <p class="ProdText">On The Spot</p>
+                {#if Number(post.stock) <= 0 }
+                <p class="ProdText">Sold Out</p>
+                {:else}
+                <p class="ProdText">OTS Available: {post.stock}</p>
+                {/if}
             {/if}
             {#if post.linkstate === 'SO'}
                 <p class="ProdText">Sold Out</p>

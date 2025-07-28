@@ -63,6 +63,9 @@
         {#if data.errStatus === "erserv"}
             <p class="errtext">Nerds Commerce backend failed to generate proper response. Please contact us.</p>
         {/if}
+        {#if data.errStatus === "ercart"}
+            <p class="errtext">Your cart contains an item or more, which it's in-cart quantity is more than the available stock.</p>
+        {/if}
     </div>
 </div>
 

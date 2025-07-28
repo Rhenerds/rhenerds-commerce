@@ -57,6 +57,27 @@ export const load: PageServerLoad = async ({ params, locals, cookies, fetch }) =
     throw fail(400, { message: 'Product slug is missing from URL.' });
   }
 
+  const stockresponse = await fetch(
+    '/api/stock/get',
+    {
+			method: "POST",
+			headers: {
+				'Content-Type': 'application/json',
+				'Accept': 'application/json'
+			},
+			body: JSON.stringify({
+				"key":productSlug
+			})
+		}
+  )
+
+  const stockresponsejson: { 
+		error: string; 
+		value: string; 
+	} = await stockresponse.json();
+
+  const stockvalue = Number(stockresponsejson.value)
+
   // --- Validate slug against internal API ---
   let products: ApiProduct[] = [];
   try {
@@ -83,12 +104,12 @@ export const load: PageServerLoad = async ({ params, locals, cookies, fetch }) =
 
   const existingItemIndex = cart.findIndex(item => item.slug === productSlug);
 
-  if (existingItemIndex !== -1) {
+  if ((existingItemIndex !== -1) && (cart[existingItemIndex].quantity < stockvalue)) {
     // Product already in cart, increment quantity
     cart[existingItemIndex].quantity += 1;
-  } else {
+  } else if((existingItemIndex === -1) && (stockvalue != 0)) {
     // Product not in cart, add new item with slug and quantity 1
-    cart.push({ slug: productSlug, quantity: 1 });
+      cart.push({ slug: productSlug, quantity: 1 });
   }
 
   // Set the updated cart back into the cookie
