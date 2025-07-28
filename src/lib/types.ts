@@ -11,4 +11,5 @@ export type Post = {
     link: string
     linkstate: 'PO' | 'OTS' | 'SO' | 'U'
     images: Categories[]
+    stock: number | null
 }

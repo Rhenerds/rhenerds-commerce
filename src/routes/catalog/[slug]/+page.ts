@@ -24,10 +24,33 @@ export const load: PageServerLoad = async ({ params, fetch, url }) => {
         source = 'h'; // Default to 'h' if 'refer' is not 'home' or 'catalog'
     }
 
+    const stockresponse = await fetch(
+        '/api/stock/get',
+        {
+			method: "POST",
+			headers: {
+				'Content-Type': 'application/json',
+				'Accept': 'application/json'
+			},
+			body: JSON.stringify({
+				"key":params.slug
+			})
+		}
+    )
+
+    const stockresponsejson: { 
+		error: string; 
+		value: string; 
+	} = await stockresponse.json();
+
+    const stockvalue = stockresponsejson.value
+
     // --- Combine and return all data ---
     return {
         content: postContent,
         meta: postMeta,
-        source: source
+        source: source,
+        slug: params.slug,
+        stock: stockvalue,
     };
 };

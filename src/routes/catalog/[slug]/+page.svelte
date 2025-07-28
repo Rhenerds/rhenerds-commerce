@@ -97,21 +97,34 @@
 		{#if data.meta.linkstate === 'SO'}
 			<p class="ProdText">Stok Habis</p>
 		{/if}
+		<p class="ProdText">Available stock: {data.stock}</p>
 		<div class="InfoBarrier" style="background-color: #FFF;"></div>
 		<p class="ProdText">Subtotal: {data.meta.price}</p>
 			{#if data.meta.linkstate === 'PO'}
-				<div class="BuyButton">
-					<a class="BuyText" href="{data.meta.link}">Preorder (Doku)</a>
-				</div>
+				{#if Number(data.stock) > 0}
+					<div class="BuyButton">
+						<a class="BuyText" href="/cart/{data.slug}">Add to cart</a>
+					</div>
+				{:else}
+					<div class="DarkButton">
+						<p class="DarkText">Stok PO Habis</p>
+					</div>
+				{/if}
 			{/if}
 			{#if data.meta.linkstate === 'OTS'}
-				<div class="DarkButton">
-				<p class="DarkText">Beli secara langsung</p>
-				</div>
+				{#if Number(data.stock) > 0}
+					<div class="DarkButton">
+						<p class="DarkText">Beli secara langsung</p>
+					</div>
+				{:else}
+					<div class="DarkButton">
+						<p class="DarkText">Stok OTS Habis</p>
+					</div>
+				{/if}
 			{/if}
 			{#if data.meta.linkstate === 'U'}
 				<div class="DarkButton">
-				<p class="DarkText">Belum Tersedia</p>
+					<p class="DarkText">Belum Tersedia</p>
 				</div>
 			{/if}
 			{#if data.meta.linkstate === 'SO'}
