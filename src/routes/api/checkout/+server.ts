@@ -3,11 +3,11 @@ import { randomUUID, createHash, createHmac } from 'crypto'
 import { url } from "$lib/config"
 import { json } from "@sveltejs/kit"
 import { Redis } from "@upstash/redis"
-import { REDIS_READONLY } from "$env/static/private"
+import { REDIS_READWRITE } from "$env/static/private"
 
 const redis = new Redis({
   url: "https://glorious-mantis-30704.upstash.io",
-  token: REDIS_READONLY,
+  token: REDIS_READWRITE,
 })
 
 
@@ -25,6 +25,22 @@ interface EnrichedCartItem {
   linkstate: string; // Added linkstate to EnrichedCartItem
   fandom: string;
   type: string;
+}
+
+interface deductCartItem {
+  slug: string;
+  quantity: number;
+}
+
+async function handleDecrement(cart: deductCartItem[], stock: { [key: string]: string | null }) {
+  var newStock: { [key: string]: string }= {}
+
+  for (const item of cart) {
+    newStock[item.slug] = String(Number(stock[item.slug] ?? "0") - item.quantity)
+  }
+
+  const response = await redis.mset(newStock)
+  return response
 }
 
 async function queryKeys(keys: string[]) {
@@ -144,12 +160,19 @@ async function processCheckout(cart:string, price: string, name: string, phone: 
 
   for (const cartItem of jsoncart) {
     const stockValue = stockdata.values ? stockdata.values[cartItem.slug] : 0;
-    if (cartItem.quantity > Number(stockValue)) {
+    if (cartItem.quantity > Number(stockValue) || Number(stockValue) === 0) {
       flagCantProcess = true
     }
   }
 
   if (flagCantProcess === false) {
+    const cartforstockdecrement: deductCartItem[] = jsoncart
+    .map(item => ({
+      slug: item.slug,
+      quantity: item.quantity
+    }));
+
+    await handleDecrement(cartforstockdecrement, stockdata.values ?? {})
 
     const processedjson = mapEnrichedCartToDokuLineItems(jsoncart, url)
     
