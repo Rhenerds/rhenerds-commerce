@@ -9,6 +9,7 @@
     price: string; // Price is a string "Rp ..." in the template
     imageUrl: string;
     linkstate: string; // Added based on template usage
+    stock: number
     // Add other enriched product properties
   }
 
@@ -89,6 +90,8 @@
                     <p class="prodprice">{cartproduct.price} x {cartproduct.quantity}</p>
                     {#if cartproduct.linkstate != 'PO'}
                         <p style="font-size: 20px;" class="prodtextnu">Can't process non-preorder products! This wont proceed to checkout.</p>
+                    {:else}
+                        <p style="font-size: 20px;" class="prodtextnu">Available stock: {cartproduct.stock}</p>
                     {/if}
                 </div>
                 <div class="prodcontrolc">
