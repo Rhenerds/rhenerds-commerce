@@ -214,6 +214,8 @@ export const actions: Actions = {
       console.log(responseData)
       if (responseData.result === "SUCCESS") {
         redirlink = responseData.link
+      } else if (responseData.response === "CARTISSUE") {
+        redirlink = "/cart/checkout?r=ercart"
       } else {
         redirlink = "/cart/checkout?r=erlink"
       }
