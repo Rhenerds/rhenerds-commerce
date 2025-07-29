@@ -18,7 +18,9 @@
             <div class="ProdInfo">
             <p class="ProdText">{post.title}</p>
             <p class="ProdText" style="font-weight: 600;">{post.price}</p>
-            {#if post.linkstate === 'U' || post.stock === null}
+            {#if post.linkstate === 'OTSP'}
+                <span class="prod-chip" style="background-color: var(--ots-open-color);">OTS Only</span>
+            {:else if post.linkstate === 'U' || post.stock === null}
                 <span class="prod-chip" style="background-color: var(--unavailable-color);">Unavailable</span>
             {:else if Number(post.stock) <= 0 || post.linkstate === 'SO'}
                 <span class="prod-chip" style="background-color: var(--sold-out-color);">Sold Out</span>
