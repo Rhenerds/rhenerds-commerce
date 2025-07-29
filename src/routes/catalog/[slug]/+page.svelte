@@ -84,20 +84,22 @@
 	</article>
 
 	<div class="PriceSlide">
-		<p class="ProdText">Informasi Pembelian:</p>
-		{#if data.meta.linkstate === 'PO'}
-			<p class="ProdText">Preorder Tersedia</p>
+		<p class="ProdText">Purchasing Information:</p>
+		{#if data.meta.linkstate === 'PO' && Number(data.stock) > 0}
+			<p class="ProdText">Preorder Available</p>
+			<p class="ProdText">Available stock: {data.stock}</p>
+		{:else if data.meta.linkstate === 'OTS' && Number(data.stock) > 0}
+			<p class="ProdText">On The Spot Only</p>
+			<p class="ProdText">Available stock: {data.stock}</p>
+		{:else if data.meta.linkstate === 'PO' && Number(data.stock) <= 0}
+			<p class="ProdText">Preorder Stock Ran Out</p>
+		{:else if data.meta.linkstate === 'OTS' && Number(data.stock) <= 0}
+			<p class="ProdText">On The Spot Stock Ran Out</p>
+		{:else if data.meta.linkstate === 'U'}
+			<p class="ProdText">Unavailable</p>
+		{:else if data.meta.linkstate === 'SO'}
+			<p class="ProdText">Stock Ran Out</p>
 		{/if}
-		{#if data.meta.linkstate === 'OTS'}
-			<p class="ProdText">Beli Di Tempat</p>
-		{/if}
-		{#if data.meta.linkstate === 'U'}
-			<p class="ProdText">Belum Tersedia</p>
-		{/if}
-		{#if data.meta.linkstate === 'SO'}
-			<p class="ProdText">Stok Habis</p>
-		{/if}
-		<p class="ProdText">Available stock: {data.stock}</p>
 		<div class="InfoBarrier" style="background-color: #FFF;"></div>
 		<p class="ProdText">Subtotal: {data.meta.price}</p>
 			{#if data.meta.linkstate === 'PO'}
@@ -107,29 +109,29 @@
 					</div>
 				{:else}
 					<div class="DarkButton">
-						<p class="DarkText">Stok PO Habis</p>
+						<p class="DarkText">Ran Out</p>
 					</div>
 				{/if}
 			{/if}
-			{#if data.meta.linkstate === 'OTS'}
+			{#if data.meta.linkstate === 'OTS' || data.meta.linkstate === "OTSP"}
 				{#if Number(data.stock) > 0}
 					<div class="DarkButton">
-						<p class="DarkText">Beli secara langsung</p>
+						<p class="DarkText">OTS Only</p>
 					</div>
 				{:else}
 					<div class="DarkButton">
-						<p class="DarkText">Stok OTS Habis</p>
+						<p class="DarkText">Ran Out</p>
 					</div>
 				{/if}
 			{/if}
 			{#if data.meta.linkstate === 'U'}
 				<div class="DarkButton">
-					<p class="DarkText">Belum Tersedia</p>
+					<p class="DarkText">Unavailable</p>
 				</div>
 			{/if}
 			{#if data.meta.linkstate === 'SO'}
 			<div class="DarkButton">
-				<p class="DarkText">Stok Habis</p>
+				<p class="DarkText">Ran Out</p>
 			</div>
 			{/if}
 	</div>
