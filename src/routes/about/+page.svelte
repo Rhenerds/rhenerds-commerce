@@ -4,10 +4,12 @@
     <h1>What is this website?</h1>
     <p>This website is purposed as a catalog information and preordering website to aid us in selling goods and merchandise at Comifuro 21, being held later this year. This site will also be repurposed after CF21 if such demands are present.</p>
     <h1>How do I preorder?</h1>
-    <p>Preorders may not be available for every product, but if available you may click on the preorder button and you will be redirected to Doku for payment and invoicing.</p>
-    <h1>When are stocks updated?</h1>
-    <p>Stocks may not be updated as frequent but we will try to inform of outages as soon as possible.</p>
+    <p>Preorders may not be available for every product, but if available you may click on the add to cart button and purchase them like purchasing in a usual e-commerce site. Payment and invoicing is handled by Doku.</p>
 </article>
+
+<div class="links">
+    <a class="link" href="/legal">Legal</a>
+</div>
 
 <div class="links">
     <a class="link" href="https://instagram.com/rhe_nerds/" target="_blank">Instagram</a>
