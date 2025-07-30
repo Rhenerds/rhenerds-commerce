@@ -81,63 +81,150 @@
 		<div class="prose">
 			<data.content />
 		</div>
+		
+		<div class="InfoBarrier"></div>
+
+		<div class="ArtistCard">
+			<img 
+				src={`/artists/${data.meta.artistname}.png`} 
+				alt={data.meta.artistname} 
+				class="ArtistProfilePic"
+			/>
+			<div class="ArtistInfo">
+				<p>Art drawn by</p>
+				<p class="ArtistName">{data.meta.artistname}</p>
+				<p class="SmallText">{data.meta.artistpronouns}</p>
+				<p class="ArtistDescription">{data.meta.artistdescription}</p>
+				{#if data.meta.artistsocials}
+					<div class="ArtistSocials">
+						{#each data.meta.artistsocials as social}
+							<a 
+								href={social.link} 
+								target="_blank" 
+								rel="noopener noreferrer" 
+								class="ArtistSocialLink"
+							>
+								<img src="/icons/{social.name}.svg" class="Icon" alt={social.name} />
+							</a>
+						{/each}
+					</div>
+				{/if}
+			</div>
+		</div>
 	</article>
 
 	<div class="PriceSlide">
-		<p class="ProdText">Purchasing Information:</p>
 		{#if data.meta.linkstate === 'PO' && Number(data.stock) > 0}
-			<p class="ProdText">Preorder Available</p>
-			<p class="ProdText">Available stock: {data.stock}</p>
+			<span class="prod-chip" style="background-color: var(--po-open-color);">Preorder Available</span>
+			<div class="InfoBarrier"></div>
+			<p class="ProdText">Total Stock: <span style="font-weight:bold">{data.stock} left</span></p>
 		{:else if data.meta.linkstate === 'OTS' && Number(data.stock) > 0}
-			<p class="ProdText">On The Spot Only</p>
-			<p class="ProdText">Available stock: {data.stock}</p>
+			<span class="prod-chip" style="background-color: var(--ots-open-color);">On The Spot Only</span>
+			<div class="InfoBarrier"></div>
+			<p class="ProdText">Total Stock: <span style="font-weight:bold">{data.stock} left</span></p>
 		{:else if data.meta.linkstate === 'PO' && Number(data.stock) <= 0}
-			<p class="ProdText">Preorder Stock Ran Out</p>
+			<span class="prod-chip" style="background-color: var(--sold-out-color);">Preorder Stock Ran Out</span>
 		{:else if data.meta.linkstate === 'OTS' && Number(data.stock) <= 0}
-			<p class="ProdText">On The Spot Stock Ran Out</p>
+			<span class="prod-chip" style="background-color: var(--sold-out-color);">On The Spot Stock Ran Out</span>
 		{:else if data.meta.linkstate === 'U'}
-			<p class="ProdText">Unavailable</p>
+			<span class="prod-chip" style="background-color: var(--unavailable-color);">Unavailable</span>
 		{:else if data.meta.linkstate === 'SO'}
-			<p class="ProdText">Stock Ran Out</p>
+			<span class="prod-chip" style="background-color: var(--sold-out-color);">Stock Ran Out</span>
 		{/if}
-		<div class="InfoBarrier" style="background-color: #FFF;"></div>
-		<p class="ProdText">Subtotal: {data.meta.price}</p>
-			{#if data.meta.linkstate === 'PO'}
-				{#if Number(data.stock) > 0}
-					<div class="BuyButton">
-						<a class="BuyText" href="/cart/{data.slug}">Add to cart</a>
-					</div>
-				{:else}
-					<div class="DarkButton">
-						<p class="DarkText">Ran Out</p>
-					</div>
-				{/if}
+		<div class="InfoBarrier"></div>
+		<div style="display: flex; width:100%; justify-content: space-between; align-items: center; margin-bottom:4px">
+			<p class="ProdText">Subtotal:</p>
+			<p class="ProdText" style="font-weight: bold; font-size: 1.5rem;">{data.meta.price}</p>
+		</div>
+		{#if data.meta.linkstate === 'PO'}
+			{#if Number(data.stock) > 0}
+				<div class="BuyButton">
+					<a class="BuyText" href="/cart/{data.slug}">Add to cart</a>
+				</div>
+			{:else}
+				<div class="DarkButton">
+					<p class="DarkText">Ran Out</p>
+				</div>
 			{/if}
-			{#if data.meta.linkstate === 'OTS' || data.meta.linkstate === "OTSP"}
-				{#if Number(data.stock) > 0}
-					<div class="DarkButton">
-						<p class="DarkText">OTS Only</p>
-					</div>
-				{:else}
-					<div class="DarkButton">
-						<p class="DarkText">Ran Out</p>
-					</div>
-				{/if}
-			{/if}
+		{/if}
+		{#if data.meta.linkstate === 'OTS' || data.meta.linkstate === "OTSP"}
+			{#if Number(data.stock) > 0}
+				<div class="DarkButton">
+					<p class="DarkText">OTS Only</p>
+				</div>
+			{:else}
+				<div class="DarkButton">
+					<p class="DarkText">Ran Out</p>
+				</div>
+		{/if}
+		{/if}
 			{#if data.meta.linkstate === 'U'}
 				<div class="DarkButton">
 					<p class="DarkText">Unavailable</p>
 				</div>
-			{/if}
+		{/if}
 			{#if data.meta.linkstate === 'SO'}
 			<div class="DarkButton">
 				<p class="DarkText">Ran Out</p>
 			</div>
-			{/if}
+		{/if}
 	</div>
 </div>
 
 <style>
+	.Icon {
+		height: 20px;
+		color: #000;
+	}
+	.ArtistCard {
+		display: flex;
+		align-items: top;
+		gap: 20px;
+		margin-top: 15px;
+		padding: 15px;
+		background-color: #00000000;
+		border-radius: 10px;
+	}
+	.ArtistProfilePic {
+		margin-top: 24px;
+		width: 80px;
+		height: 80px;
+		border-radius: 50%;
+		object-fit: cover;
+		border: 2px solid #0000004d;
+	}
+	.ArtistInfo {
+		flex: 1;
+	}
+	.ArtistName {
+		font-weight: 500;
+		font-size: 22px;
+		color: #000;
+		font-family: "Roboto Flex";
+	}
+	.ArtistDescription {
+		font-size: 16px;
+		color: #333;
+		margin-bottom: 8px;
+		font-family: "Roboto Flex";
+	}
+	.ArtistSocials {
+		margin-top: 6px;
+		display: flex;
+	}
+	.SmallText {
+		color: #0000004d; 
+		line-height: 0.5;
+		margin-bottom: 8px;
+	}
+	.ArtistSocialLink {
+		margin-right: 10px;
+		color: #000158;
+		font-weight: 400;
+		text-decoration: underline;
+		font-family: "Roboto Flex";
+		font-size: 15px;
+	}
 	.BackLink {
 		color: #000158;
 		text-align: left;
@@ -172,8 +259,7 @@
 		font-weight: 430;
 		line-height: 90%; /* 28.8px */
 		letter-spacing: -0.96px;
-		margin-top: 20px;
-		margin-bottom: 30px;
+		margin-top: 15px;
 	}
 
 	.ProductEnv {
@@ -191,7 +277,8 @@
 	.PriceSlide {
 		height: fit-content;
 		width: 20%;
-		background-color: #DDD;
+		box-shadow: rgba(0, 0, 0, 0.1) 0px 1px 16px;
+		border: 3px solid #00000020;
 		border-radius: 22px;
 		padding: 15px;
 		margin-left: 20px;
@@ -199,10 +286,10 @@
 
 	.InfoBarrier {
 		width: 100%;
-		background-color: #DDD;
-		height: 4px;
-		border-radius: 2px;
-		margin-bottom: 30px;
+		background-color: #00000010;
+		height: 2px;
+		margin-bottom: 15px;
+		margin-top: 15px;
 	}
 
 	.ProdText {

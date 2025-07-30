@@ -45,11 +45,11 @@
         justify-content: left;
     }
     .ProdItem {
-         border-radius: 10px;
-         background-color: #ffffff;
+        border-radius: 10px;
+        background-color: #ffffff;
         box-shadow: rgba(0, 0, 0, 0.12) 0px 1px 4px;
-         width: 170px;
-         height: 280px;
+        width: 170px;
+        height: 280px;
     }
     .ProdImg {
         border-radius: 10px 10px 0 0;
@@ -79,23 +79,6 @@
         letter-spacing: -0.6px;
     }
 
-    .prod-chip {
-        color: white;
-        padding: 2px 10px;
-        text-align: center;
-        text-decoration: none;
-        display: inline-block;
-        font-size: 12px;
-        margin: 4px 2px;
-        cursor: default;
-        width: fit-content;
-        border-radius: 12px;
-    }
 
-    :root {
-        --unavailable-color: #f44336;  
-        --sold-out-color: #e91e63;     
-        --po-open-color: #4caf50;      
-        --ots-open-color: #2196f3;    
-    }
+
 </style>

@@ -43,7 +43,25 @@
 }
 
 /* product info styling */
-
+:root {
+    --unavailable-color: #f44336;  
+    --sold-out-color: #e91e63;     
+    --po-open-color: #4caf50;      
+    --ots-open-color: #2196f3;    
+}
+.prod-chip {
+    box-shadow: rgba(0, 0, 0, 0.12) 0px 1px 4px;
+    color: white;
+    padding: 2px 10px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 12px;
+    margin: 4px 4px;
+    cursor: default;
+    width: fit-content;
+    border-radius: 12px;
+}
 .prose {
 	p {
     margin-top: 40px;
@@ -53,7 +71,7 @@
     font-size: 20px;
     font-style: normal;
     font-weight: 300;
-    line-height: 90%; /* 18px */
+    line-height: 100%; /* 18px */
     letter-spacing: -0.6px;
 	}
 
