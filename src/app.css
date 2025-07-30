@@ -1,4 +1,6 @@
 @import 'tailwindcss';
+@import url('/assets/inter.css');
+
 @plugin '@tailwindcss/forms';
 @plugin '@tailwindcss/typography';
 
@@ -38,4 +40,73 @@
   input[type="search"]::-webkit-search-cancel-button {
     display: none;
   }
+}
+
+/* product info styling */
+:root {
+    --unavailable-color: #f44336;  
+    --sold-out-color: #e91e63;     
+    --po-open-color: #4caf50;      
+    --ots-open-color: #2196f3;    
+}
+.prod-chip {
+    box-shadow: rgba(0, 0, 0, 0.12) 0px 1px 4px;
+    color: white;
+    padding: 2px 10px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 12px;
+    margin: 4px 4px;
+    cursor: default;
+    width: fit-content;
+    border-radius: 12px;
+}
+.prose {
+	p {
+    margin-top: 40px;
+    color: #000;
+    text-align: justify;
+    font-family: "Inter";
+    font-size: 20px;
+    font-style: normal;
+    font-weight: 300;
+    line-height: 100%; /* 18px */
+    letter-spacing: -0.6px;
+	}
+
+	h1, h2, h3, h4, h5, h6 {
+		margin-top: var(--size-8);
+		margin-bottom: var(--size-3);
+    color: #000;
+    text-align: left;
+    font-family: "Inter";
+    font-size: 33px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 90%; /* 18px */
+    letter-spacing: -0.6px;
+	}
+
+	ul {
+		list-style-type:circle;
+		padding-left: var(--size-5);
+	}
+
+  ol {
+		list-style-type:decimal;
+		padding-left: var(--size-5);
+	}
+
+	ul li, ol li {
+		margin-block: var(--size-2);
+		padding-inline-start: var(--size-2);
+	}
+
+	pre {
+		max-inline-size: 100%;
+		padding: var(--size-3);
+		border-radius: 8px;
+		tab-size: 2;
+	}
 }

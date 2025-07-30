@@ -9,7 +9,7 @@ export type Post = {
 	published: boolean
     price: string
     link: string
-    linkstate: 'PO' | 'OTS' | 'SO' | 'U'
+    linkstate: 'PO' | 'OTS' | 'SO' | 'U' | 'OTSP'
     images: Categories[]
     stock: number | null
 }

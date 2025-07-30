@@ -23,26 +23,17 @@
             </div>
             <div class="ProdInfo">
             <p class="ProdText">{post.title}</p>
-            <p class="ProdText" style="font-weight: 420;">{post.price}</p>
-            {#if post.linkstate === 'PO'}
-                {#if Number(post.stock) <= 0 }
-                <p class="ProdText">Sold Out</p>
-                {:else}
-                <p class="ProdText">PO Available: {post.stock}</p>
-                {/if}
-            {/if}
-            {#if post.linkstate === 'OTS'}
-                {#if Number(post.stock) <= 0 }
-                <p class="ProdText">Sold Out</p>
-                {:else}
-                <p class="ProdText">OTS Available: {post.stock}</p>
-                {/if}
-            {/if}
-            {#if post.linkstate === 'SO'}
-                <p class="ProdText">Sold Out</p>
-            {/if}
-            {#if post.linkstate === 'U'}
-                <p class="ProdText">Unavailable</p>
+            <p class="ProdText" style="font-weight: 600;">{post.price}</p>
+            {#if post.linkstate === 'OTSP'}
+                <span class="prod-chip" style="background-color: var(--ots-open-color);">OTS Only</span>
+            {:else if post.linkstate === 'U' || post.stock === null}
+                <span class="prod-chip" style="background-color: var(--unavailable-color);">Unavailable</span>
+            {:else if Number(post.stock) <= 0 || post.linkstate === 'SO'}
+                <span class="prod-chip" style="background-color: var(--sold-out-color);">Sold Out</span>
+            {:else if post.linkstate === 'PO'}
+                <span class="prod-chip" style="background-color: var(--po-open-color);">PO Open: {post.stock} Available</span>
+            {:else if post.linkstate === 'OTS'}
+                <span class="prod-chip" style="background-color: var(--ots-open-color);">OTS Open: {post.stock} Available</span>
             {/if}
             </div>
         </a>
@@ -70,13 +61,14 @@
         justify-content: left;
     }
     .ProdItem {
-         border-radius: 10px;
-         background-color: #E4E4E4;
-         width: 170px;
-         height: 280px;
+        border-radius: 10px;
+        background-color: #ffffff;
+        box-shadow: rgba(0, 0, 0, 0.12) 0px 1px 4px;
+        width: 170px;
+        height: 280px;
     }
     .ProdImg {
-        border-radius: 10px;
+        border-radius: 10px 10px 0 0;
         background-color: #545454;
         width: 170px;
         height: 170px;
@@ -87,18 +79,18 @@
         height: 110px;
         display: flex;
         flex-direction: column;
-        justify-content: center;
+        margin: 8px;
     }
 
     .ProdText {
-        font-family: 'Roboto Flex';
+        font-family: 'Inter';
         margin: 5px;
         width: auto;
-        text-align: center;
+        text-align: left;
         color: #000;
-        font-size: 20px;
+        font-size: 1rem; /* 16px */
         font-style: normal;
-        font-weight: 300;
+        font-weight: 350;
         line-height: 90%; /* 18px */
         letter-spacing: -0.6px;
     }
@@ -137,5 +129,25 @@
 
     .SearchTextLink:hover {
         text-decoration: underline 2px;
+    }
+
+    .prod-chip {
+        color: white;
+        padding: 2px 10px;
+        text-align: center;
+        text-decoration: none;
+        display: inline-block;
+        font-size: 12px;
+        margin: 4px 2px;
+        cursor: default;
+        width: fit-content;
+        border-radius: 12px;
+    }
+
+    :root {
+        --unavailable-color: #f44336;  
+        --sold-out-color: #e91e63;     
+        --po-open-color: #4caf50;      
+        --ots-open-color: #2196f3;    
     }
 </style>
