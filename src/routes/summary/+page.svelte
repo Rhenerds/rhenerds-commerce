@@ -4,7 +4,7 @@
 </script>
 
 {#if data.trstatus === 'SUCCESS'}
-    <img src="/assets/statuspage/success.png" alt="A drawing of two fish approving a package, your order went through!">
+    <img src="/assets/statuspage/success.png" style="image-rendering: crisp-edges;" alt="A drawing of two fish approving a package, your order went through!">
     <h1>Transaction Success!</h1>
     <p>We've received your order. See you there at Comifuro for pickup! Thank you for ordering :3</p>
     <p>Make sure you've received your 'Order Complete' invoice in your email inbox for pickup.</p>
