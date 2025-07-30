@@ -18,6 +18,12 @@
             <p>Contains information on how to place an order through our site and how we process your order, as well as information regarding pickup and refund.</p>
         </a>
     </li>
+    <li>
+        <a target="_blank" href="https://github.com/Rhenerds/rhenerds-commerce/blob/main/LICENSE">
+            <h2 class="Link">Source Code License</h2>
+            <p>Contains information on how the website is licensed, and how you can use or adapt our website.</p>
+        </a>
+    </li>
 </ul>
 
 <style>
