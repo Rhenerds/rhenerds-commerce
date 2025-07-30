@@ -1,3 +1,4 @@
+<a class="Link" href="/legal">Back to Legal</a>
 <h1>Preorder Notice</h1>
 <p>With the approach of Comifuro 21 later November 15-16, we are opening preorders soon for your favorite merch!</p>
 <p>Preorder period has not been determined, check back later!</p>
@@ -13,6 +14,14 @@
 <p>Purchased goods are non refundable. However, a partial refund will be available for unclaimed purchases after they are unavailable for pickup.</p>
 
 <style>
+    .Link {
+		color: #000158;
+	}
+
+    .Link:hover {
+		text-decoration: underline 2px;
+	}
+
     h1 {
         color: #000;
         font-family: "Roboto Flex";
@@ -35,7 +44,7 @@
         margin-bottom: 10px;
     }
 
-    p {
+    p, a {
         color: #000;
         font-family: "Roboto Flex";
         font-size: 20px;

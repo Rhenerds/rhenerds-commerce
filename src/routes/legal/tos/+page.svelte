@@ -1,3 +1,4 @@
+<a class="Link" href="/legal">Back to Legal</a>
 <h1>Terms of Service for The Nerds Catalog</h1>
 <p>
     Welcome to The Nerds Catalog! By accessing or using our website, you agree to comply with and be bound by the following terms and conditions.
@@ -17,7 +18,7 @@
         <strong>Intellectual Property:</strong> The general design, text, and logos of The Nerds Catalog website are the property of The Nerds Catalog or its content suppliers and are protected by intellectual property laws. However, many products sold on this website are fan merchandise. For these products, intellectual property rights, including character rights, belong to their respective designers, with all rights reserved. Specifically, for merchandise featuring "Karakter (c)2018-2025 Zachz Winner, Desain (c)2025 Nerds, berlisensi," all rights pertaining to the character are reserved by Zachz Winner. You may not reproduce, distribute, or create derivative works from any content or product designs without explicit permission from the respective rights holders.
     </li>
     <li>
-        <strong>Purchasing Eligibility:</strong> By placing an order on The Nerds Catalog, you confirm that you are at least 17 years of age or have obtained the explicit consent and approval of a parent or legal guardian.
+        <strong>Purchasing Eligibility:</strong> By placing an order on The Nerds Catalog, you confirm that you are at least 18 years of age or have obtained the explicit consent and approval of a parent or legal guardian.
     </li>
     <li>
         <strong>Pre-Orders and Event Pickup:</strong> For pre-orders designated for event pickup, it is the customer's responsibility to collect their items during the specified event period. Pre-orders not picked up during the event must be settled in person by contacting The Nerds Catalog team to arrange an alternative pickup or delivery.
@@ -49,9 +50,17 @@
     </li>
 </ol>
 
-<p>Last Updated 26 July 2025</p>
+<p>Last Updated 30 July 2025</p>
 
 <style>
+    .Link {
+		color: #000158;
+	}
+
+    .Link:hover {
+		text-decoration: underline 2px;
+	}
+
     h1 {
         color: #000;
         font-family: "Roboto Flex";
@@ -63,7 +72,7 @@
         margin-bottom: 10px;
     }
 
-    p, li {
+    p, li, a {
         color: #000;
         font-family: "Roboto Flex";
         font-size: 20px;
