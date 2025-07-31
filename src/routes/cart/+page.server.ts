@@ -383,6 +383,8 @@ export const actions: Actions = {
       sameSite: 'lax',
     });
 
+    locals.cart = cart
+
     // Re-fetch product data to enrich the cart for the client response
     let productsFromApi: ApiProduct[] = [];
     try {
@@ -449,6 +451,8 @@ export const actions: Actions = {
 
     let cart: CartItemCookie[] = locals.cart;
     cart = cart.filter(item => item.slug !== productSlug);
+
+    locals.cart = cart
 
     cookies.set(CART_COOKIE_NAME, JSON.stringify(cart), {
       path: '/',
@@ -549,6 +553,8 @@ export const actions: Actions = {
       sameSite: 'lax',
     });
 
+    locals.cart = cart
+
     // Re-fetch product data to enrich the cart for the client response
     let productsFromApi: ApiProduct[] = [];
     try {
@@ -566,7 +572,7 @@ export const actions: Actions = {
   },
 
   // Action to clear the entire cart
-  clearCart: async ({ cookies, fetch }) => { // Added fetch here to get products for enrichment
+  clearCart: async ({ cookies, fetch, locals }) => { // Added fetch here to get products for enrichment
     // Set the cookie to an empty array
     cookies.set(CART_COOKIE_NAME, JSON.stringify([]), {
       path: '/',
@@ -574,6 +580,8 @@ export const actions: Actions = {
       httpOnly: true,
       sameSite: 'lax',
     });
+
+    locals.cart = []
 
     // Even though cart is empty, enrich it to get correct structure for client
     let productsFromApi: ApiProduct[] = [];
