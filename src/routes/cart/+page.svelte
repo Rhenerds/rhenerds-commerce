@@ -18,7 +18,7 @@
     let cartItems: EnrichedCartItem[] = $state(data?.cart || []);
     let updatedPrice: number = $state(data?.totalPrice || 0)
 
-    let poItemsLength = $derived(() => cartItems.filter(item => item.linkstate === 'PO').length);
+    let poItemsLength = $derived(() => cartItems.filter(item => item.linkstate === 'PO' && item.quantity > 0 && item.stock > 0).length);
 
     $effect(() => {
     if (form?.success && form?.cart !== undefined) {
@@ -81,15 +81,16 @@
             <div class="cartitem">
                 <img class="prodimage" src="{cartproduct.imageUrl}" alt="{cartproduct.title} image">
                 <div class="prodinfo">
-                    {#if cartproduct.linkstate === 'PO'}
+                    {#if cartproduct.linkstate === 'PO' && cartproduct.stock > 0}
                         <p class="prodtext"><a target="_blank" href="/catalog/{cartproduct.slug}">{cartproduct.title}</a></p>
-                    {/if}
-                    {#if cartproduct.linkstate != 'PO'}
+                    {:else if cartproduct.linkstate != 'PO' || cartproduct.stock <= 0}
                         <p class="prodtext"><a target="_blank" style="text-decoration: line-through;" href="/catalog/{cartproduct.slug}">{cartproduct.title}</a></p>
                     {/if}
                     <p class="prodprice">{cartproduct.price} x {cartproduct.quantity}</p>
                     {#if cartproduct.linkstate != 'PO'}
                         <p style="font-size: 20px;" class="prodtextnu">Can't process non-preorder products! This wont proceed to checkout.</p>
+                    {:else if cartproduct.stock <= 0}
+                        <p style="font-size: 20px;" class="prodtextnu">Can't process out of stock products! This wont proceed to checkout.</p>
                     {:else}
                         <p style="font-size: 20px;" class="prodtextnu">Available stock: {cartproduct.stock}</p>
                     {/if}

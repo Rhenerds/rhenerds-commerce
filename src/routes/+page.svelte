@@ -10,7 +10,7 @@
 </svelte:head>
 
 <h1>Welcome to our catalog site</h1>
-<p class="TopText">Preorders coming soon... <a class="TopLink" href="/preordering">Preorder Notice</a></p>
+<p class="TopText">Preorders coming soon... <a class="TopLink" href="/legal/preordering">Preorder Notice</a></p>
 
 {#each data.fandoms as fandom}
     <h2>{fandom} Merch</h2>

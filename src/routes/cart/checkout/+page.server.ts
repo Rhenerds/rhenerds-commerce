@@ -37,7 +37,7 @@ const CART_COOKIE_NAME = 'user_cart'
 function calculateTotalPrice(enrichedCart: EnrichedCartItem[]): number {
   let total = 0;
   for (const item of enrichedCart) {
-    if (item.linkstate === 'PO') { // Only include 'PO' products in total
+    if (item.linkstate === 'PO' && item.quantity > 0) { // Only include 'PO' products in total
       const priceAsNumber = parseRupiahToNumber(item.price);
       total += priceAsNumber * item.quantity;
     }

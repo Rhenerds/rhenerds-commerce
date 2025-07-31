@@ -1,3 +1,4 @@
+<a class="Link" href="/legal">Back to Legal</a>
 <h1>Privacy Policy for The Nerds Catalog</h1>
 <p>
     This Privacy Policy explains how information is handled when you use The Nerds Catalog.
@@ -78,6 +79,7 @@
 <p>Last Updated 26 July 2025</p>
 
 <style>
+
     h1 {
         color: #000;
         font-family: "Roboto Flex";
@@ -89,7 +91,7 @@
         margin-bottom: 10px;
     }
 
-    p, li {
+    p, li, a {
         color: #000;
         font-family: "Roboto Flex";
         font-size: 20px;
@@ -99,6 +101,14 @@
         letter-spacing: -0.6px;
         margin-bottom: 20px;
     }
+
+    .Link {
+		color: #000158;
+	}
+
+    .Link:hover {
+		text-decoration: underline 2px;
+	}
 
     ol {
         list-style: decimal;

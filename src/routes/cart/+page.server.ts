@@ -383,6 +383,8 @@ export const actions: Actions = {
       sameSite: 'lax',
     });
 
+    locals.cart = cart
+
     // Re-fetch product data to enrich the cart for the client response
     let productsFromApi: ApiProduct[] = [];
     try {
@@ -396,7 +398,46 @@ export const actions: Actions = {
     const enrichedCart = enrichCart(cart, productsFromApi);
     const totalPrice = calculateTotalPrice(enrichedCart); // Calculate total price
 
-    return { success: true, cart: enrichedCart, totalPrice: totalPrice };
+    const slugsToQueryForStock = enrichedCart
+        .filter(item => item.linkstate === 'PO') // Only get slugs for 'PO' items
+        .map(item => item.slug);
+
+    var finalEnrichedCart: EnrichedCartItem[] = []
+
+    let stockDataDict: { [key: string]: string | null } = {};
+
+    if (slugsToQueryForStock.length > 0) {
+      stockDataDict = await getStocks(fetch, slugsToQueryForStock)
+    }
+
+    for (var item of enrichedCart) {
+    let actualQuantity = item.quantity;
+    let itemStock: number | null = null; // Initialize to null
+
+    if (item.linkstate === 'PO') {
+        const rawStock = stockDataDict[item.slug];
+        // Convert stock string to number, defaulting to 0 if null/invalid
+        itemStock = Number(rawStock)
+
+        // Store the stock value on the item (even if it's null)
+        item.stock = itemStock;
+
+        // Modify cart quantity if it exceeds stock (only for 'PO' items)
+        if (itemStock !== null && actualQuantity > itemStock) {
+            actualQuantity = itemStock;
+        }
+        // If itemStock is null (invalid/missing stock data), we don't adjust quantity
+        // based on stock, it remains as per cart. You might want a different default behavior here.
+    } else {
+        // For non-'PO' items, stock might not be relevant or fetched,
+        // but we still add the property to keep the interface consistent.
+        item.stock = 0; 
+    }
+
+    finalEnrichedCart.push({ ...item, quantity: actualQuantity });
+  }
+
+    return { success: true, cart: finalEnrichedCart, totalPrice: totalPrice };
   },
 
   // Action to remove a product completely from the cart
@@ -410,6 +451,8 @@ export const actions: Actions = {
 
     let cart: CartItemCookie[] = locals.cart;
     cart = cart.filter(item => item.slug !== productSlug);
+
+    locals.cart = cart
 
     cookies.set(CART_COOKIE_NAME, JSON.stringify(cart), {
       path: '/',
@@ -510,6 +553,8 @@ export const actions: Actions = {
       sameSite: 'lax',
     });
 
+    locals.cart = cart
+
     // Re-fetch product data to enrich the cart for the client response
     let productsFromApi: ApiProduct[] = [];
     try {
@@ -527,7 +572,7 @@ export const actions: Actions = {
   },
 
   // Action to clear the entire cart
-  clearCart: async ({ cookies, fetch }) => { // Added fetch here to get products for enrichment
+  clearCart: async ({ cookies, fetch, locals }) => { // Added fetch here to get products for enrichment
     // Set the cookie to an empty array
     cookies.set(CART_COOKIE_NAME, JSON.stringify([]), {
       path: '/',
@@ -535,6 +580,8 @@ export const actions: Actions = {
       httpOnly: true,
       sameSite: 'lax',
     });
+
+    locals.cart = []
 
     // Even though cart is empty, enrich it to get correct structure for client
     let productsFromApi: ApiProduct[] = [];

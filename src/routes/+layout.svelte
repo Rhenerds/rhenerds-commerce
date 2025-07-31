@@ -55,8 +55,8 @@
 <footer>
 	<div class="FooterBar">
 		<a class="FooterLink" href="https://github.com/Rhenerds/rhenerds-commerce">Source Code</a>
-		<a class="FooterLink" href="/privacy">Privacy Policy</a>
-		<a class="FooterLink" href="/tos">Terms of Service</a>
+		<a class="FooterLink" href="/legal/privacy">Privacy Policy</a>
+		<a class="FooterLink" href="/legal/tos">Terms of Service</a>
 	</div>
 	<div class="FooterBar">
 		<p class="FooterText">©2025 Rhendra</p>
