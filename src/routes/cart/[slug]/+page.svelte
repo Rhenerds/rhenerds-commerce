@@ -2,7 +2,21 @@
 <script lang="ts">
   import type { PageData } from './$types'; // No ActionData needed as no form actions
   import { goto } from '$app/navigation'; // Import goto for navigation
+  import { invalidate } from '$app/navigation';
+	import { onMount } from 'svelte';
+  import { cartAmountStore } from '$lib/stores/cartStore';
 
+  onMount(() => {
+    if (data.newTotalCartAmount !== undefined) {
+          cartAmountStore.set(data.newTotalCartAmount);
+          console.log("CLIENT: Store updated from +page.svelte with total:", data.newTotalCartAmount);
+      }
+
+    setTimeout(() => {
+            invalidate('data:layout');
+            console.log('CLIENT: Invalidation triggered for layout data.');
+        }, 50);
+  })
   
   interface Props {
     // Props passed from +page.server.ts (data)

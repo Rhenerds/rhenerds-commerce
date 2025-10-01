@@ -120,6 +120,11 @@ export const load: PageServerLoad = async ({ params, locals, cookies, fetch }) =
     sameSite: 'lax', // Protects against CSRF attacks
   });
 
+  const newTotalCartAmount = cart.reduce(
+      (sum, item) => sum + item.quantity,
+      0
+  );
+
   // Return success message and product details directly for the page to render
   const addedProduct = cart.find(item => item.slug === productSlug);
   return {
@@ -131,6 +136,7 @@ export const load: PageServerLoad = async ({ params, locals, cookies, fetch }) =
     productDescription: productDetails.description, // Return product description
     productPrice: productDetails.price, // Return product price
     productImage: productDetails.images[0] || null, // Return the first image URL
+    newTotalCartAmount: newTotalCartAmount
   };
 };
 
