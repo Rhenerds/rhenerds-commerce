@@ -1,6 +1,7 @@
 // src/routes/cart/+page.ts
 import { redirect } from '@sveltejs/kit';
 import type { PageServerLoad, Actions } from './$types';
+import { browser } from '$app/environment';
 
 interface CartItemCookie {
   slug: string;
@@ -97,7 +98,7 @@ export const load: PageServerLoad = async ({ fetch, locals, cookies, url }) => {
         // Basic validation for the parsed cookie content
         if (Array.isArray(parsedUserCart) && parsedUserCart.every(item => typeof item === 'object' && item !== null && 'slug' in item && 'quantity' in item)) {
           rawCart = parsedUserCart;
-          console.log('Cart loaded from user_cart cookie:', rawCart);
+          if (browser) {console.log('Cart loaded from user_cart cookie:', rawCart);}
         } else {
           console.warn('Invalid user_cart cookie format, ignoring:', userCartCookie);
           cookies.delete('user_cart', { path: '/' }); // Optionally clear invalid cookie
@@ -158,7 +159,7 @@ export const actions: Actions = {
           // Basic validation for the parsed cookie content
           if (Array.isArray(parsedUserCart) && parsedUserCart.every(item => typeof item === 'object' && item !== null && 'slug' in item && 'quantity' in item)) {
             rawCart = parsedUserCart;
-            console.log('Cart loaded from user_cart cookie:', rawCart);
+            if (browser) {console.log('Cart loaded from user_cart cookie:', rawCart);}
           } else {
             console.warn('Invalid user_cart cookie format, ignoring:', userCartCookie);
             cookies.delete('user_cart', { path: '/' }); // Optionally clear invalid cookie
@@ -211,7 +212,7 @@ export const actions: Actions = {
 
     if (response.ok) {
       const responseData = await response.json()
-      console.log(responseData)
+      if (browser) {console.log(responseData)}
       if (responseData.result === "SUCCESS") {
         redirlink = responseData.link
       } else if (responseData.response === "CARTISSUE") {

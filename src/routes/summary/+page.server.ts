@@ -1,4 +1,5 @@
 import type { PageServerLoad } from "../$types";
+import { browser } from "$app/environment";
 
 // Define the simplified structure of a cart item as stored in the cookie
 interface CartItemCookie {
@@ -112,11 +113,11 @@ export const load: PageServerLoad = async ({ fetch, url, cookies, locals }) => {
 
         if (statusresponse.ok) {
             const Resp = await statusresponse.json()
-            console.log(Resp.result)
+            if (browser) {console.log(Resp.result)}
             trstatus = Resp.result
         } else {
             const Resp = await statusresponse.json()
-            console.log(Resp.result)
+            if (browser) {console.log(Resp.result)}
             if (Resp.result === "NotFound") {
                 trstatus = 'NotFound'
             } else {
