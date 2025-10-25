@@ -198,7 +198,7 @@
 					const footerBottom = footer.getBoundingClientRect().bottom;
 
 					// Calculate the vertical distance.
-					const height = footerBottom - headerTop + 50;
+					const height = footerBottom - headerTop + 200;
 					const heightString = `${height}px`;
 
 					// 1. Set the CSS variable globally on the <html> element.
