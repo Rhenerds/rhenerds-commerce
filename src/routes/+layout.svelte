@@ -754,6 +754,7 @@
 		justify-content:flex-start;
 		display: flex;
 		flex-direction: column;
+		box-shadow: 0 0 16px 0 rgba(0, 0, 0, 0.25);
 	}
 
 	.FooterBar {
