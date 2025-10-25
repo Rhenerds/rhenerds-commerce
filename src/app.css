@@ -44,10 +44,10 @@
 
 /* product info styling */
 :root {
-    --unavailable-color: #f44336;  
-    --sold-out-color: #e91e63;     
-    --po-open-color: #4caf50;      
-    --ots-open-color: #2196f3;    
+    --unavailable-color: #f44336;
+    --sold-out-color: #e91e63;
+    --po-open-color: #4caf50;
+    --ots-open-color: #2196f3;
 }
 .prod-chip {
     box-shadow: rgba(0, 0, 0, 0.12) 0px 1px 4px;
@@ -109,4 +109,13 @@
 		border-radius: 8px;
 		tab-size: 2;
 	}
+}
+
+.is-homepage .relative {
+  height: 100% !important;
+}
+
+.shrunk {
+    height: var(--html-height);
+    padding-bottom: 0 !important;
 }
