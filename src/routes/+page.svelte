@@ -69,7 +69,7 @@
         border-top-right-radius: 60px;
         background-color: #fff;
         box-shadow: 0 -16px 16px 0 rgba(0, 0, 0, 0.25);
-        height: 50px;
+        height: 60px;
         transform: translateX(-60px) translateY(15px);
     }
 </style>
