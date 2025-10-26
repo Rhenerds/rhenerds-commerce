@@ -198,7 +198,7 @@
 					const footerBottom = footer.getBoundingClientRect().bottom;
 
 					// Calculate the vertical distance.
-					const height = footerBottom - headerTop + 200;
+					const height = footerBottom - headerTop + 120;
 					const heightString = `${height}px`;
 
 					// 1. Set the CSS variable globally on the <html> element.
@@ -241,7 +241,7 @@
 
 </script>
 
-<header>
+<header id="top">
 	<div class="mainheader" class:mainheader_homepage={isHomePage}>
 		<a class="HeaderBox" href="/">
 			<img class="LogoImg" src="/assets/nerdscatalog.webp" alt="Logo of Nerds Catalog">
@@ -251,7 +251,7 @@
 			<div class="NavBar">
 				<div class="NavChoice" class:expandSearchDiv={isInputActive} class:shrinkSearchDiv={ (!isInputActive && enableTransition) } aria-label="Search button">
 					<label for="SearchBar">Search</label>
-						<input class="inputsmth" type="text" id="SearchBar" placeholder="Search Here" bind:value={searchTerm} onkeyup={handleKeyPress} onfocus={handleFocus} onblur={handleBlur}>
+						<input class="inputsmth" type="text" id="SearchBar" placeholder="Search Here..." bind:value={searchTerm} onkeyup={handleKeyPress} onfocus={handleFocus} onblur={handleBlur}>
 					<svg class:hideSearchIcon={isInputActive} class:showSearchIcon={ (!isInputActive && enableTransition) } viewBox="0 0 15 15" fill="none" xmlns="http://www.w3.org/2000/svg">
 						<g clip-path="url(#clip0_353_107)">
 							<path fill-rule="evenodd" clip-rule="evenodd" d="M10.7812 6.5625C10.7812 7.11651 10.6721 7.6651 10.46 8.17694C10.248 8.68879 9.93726 9.15385 9.54557 9.54562C9.15379 9.93731 8.68873 10.2481 8.17688 10.4602C7.66504 10.6721 7.11645 10.7812 6.56244 10.7812C6.00842 10.7812 5.45984 10.6721 4.94799 10.4602C4.43615 10.2481 3.97108 9.93731 3.57933 9.54562C3.18758 9.15385 2.87684 8.68879 2.66482 8.17694C2.4528 7.6651 2.34369 7.11651 2.34369 6.5625C2.34369 5.44361 2.78816 4.37056 3.57933 3.57939C4.3705 2.78822 5.44355 2.34375 6.56244 2.34375C7.68132 2.34375 8.75437 2.78822 9.54557 3.57939C10.3367 4.37056 10.7812 5.44361 10.7812 6.5625ZM10.0124 11.0062C8.88217 11.8837 7.45997 12.2975 6.03538 12.1632C4.61078 12.0291 3.29088 11.357 2.34439 10.2838C1.39789 9.21067 0.895954 7.81715 0.940748 6.38695C0.985551 4.95675 1.57372 3.59737 2.58552 2.58558C3.59732 1.57378 4.95669 0.985612 6.38689 0.940809C7.81709 0.896013 9.2106 1.39795 10.2838 2.34445C11.3569 3.29094 12.029 4.61084 12.1632 6.03544C12.2974 7.46002 11.8837 8.88222 11.0062 10.0125L13.8562 12.8625C13.9253 12.9269 13.9807 13.0045 14.0191 13.0908C14.0576 13.177 14.0782 13.2701 14.0799 13.3645C14.0816 13.4589 14.0641 13.5527 14.0288 13.6402C13.9934 13.7278 13.9408 13.8073 13.874 13.8741C13.8073 13.9409 13.7278 13.9935 13.6402 14.0288C13.5526 14.0642 13.4589 14.0816 13.3645 14.0799C13.2701 14.0782 13.1769 14.0576 13.0907 14.0192C13.0045 13.9808 12.9269 13.9253 12.8624 13.8562L10.0124 11.0062Z" fill="#1F2328"/>
@@ -303,12 +303,59 @@
 </main>
 <footer class:footer_homepage={isHomePage}>
 	<div class="FooterBar">
-		<a class="FooterLink" href="https://github.com/Rhenerds/rhenerds-commerce">Source Code</a>
-		<a class="FooterLink" href="/legal/privacy">Privacy Policy</a>
-		<a class="FooterLink" href="/legal/tos">Terms of Service</a>
+		<div class="footerLinks">
+			<div class="footerLinksRows">
+				<p class="footerLinkHead">Catalog</p>
+				<a href="/about" class="footerLinkText">About</a>
+				<a href="/legal" class="footerLinkText">Legal</a>
+				<a href="/guide" class="footerLinkText">Guide</a>
+				<a href="/announcements" class="footerLinkText">Announcements</a>
+				<a target="_blank" href="https://github.com/Rhenerds/rhenerds-commerce" class="footerLinkText">Source code</a>
+				<div class="footerSpace"></div>
+				<p class="footerLinkHead">Nerds</p>
+				<a href="/about" class="footerLinkText">Main Website</a>
+				<a href="/legal" class="footerLinkText">About Us</a>
+				<a href="/guide" class="footerLinkText">Transparency</a>
+			</div>
+			<div class="footerLinksRows">
+				<p class="footerLinkHead">Featured</p>
+				<a target="_blank" href="https://kraafter.me/" class="footerLinkText">Kraafter</a>
+				<a target="_blank" href="https://ryj.my.id/" class="footerLinkText">Ryoojiz</a>
+				<a target="_blank" href="https://ivrry.nekoweb.org/" class="footerLinkText">Noelle</a>
+				<div class="footerSpace"></div>
+				<p class="footerLinkHead">Get in Touch</p>
+				<a href="/about" class="footerLinkText">Contact Form</a>
+				<a href="/legal" class="footerLinkText">Instagram</a>
+			</div>
+			<div class="footerLinksRows">
+				<p class="footerLinkHead">Buttons</p>
+				<a target="_blank" href="https://www.mabsland.com/Adoption.html" aria-label="Censorship Panda 14">
+					<img class="buttons" src="/assets/footer/Censor_14c.gif" alt="Censorship Panda 14">
+				</a>
+				<img class="buttons" src="/assets/footer/twopaws.png" alt="Made with our own two paws">
+				<img class="buttons" src="/assets/footer/linuxnow.jpg" alt="Linux now">
+				<img class="buttons" src="/assets/footer/windows.gif" alt="Made With Windows">
+				<img class="buttons" src="/assets/footer/pride.gif" alt="Pride">
+				<img class="buttons" src="/assets/footer/youre_telling_me.png" alt="You're telling a queer coded this">
+			</div>
+		</div>
+		<div class="footerNerds">
+			<div style="display: flex; flex-direction:column; width: 100%; position: relative; height:100%">
+				<a href="#top" style="display: flex; flex-direction:row">
+					<p class="footerGoBack">Back to Top</p>
+					<div class="backButtonIconContain">
+						<img class="upIcon" src="/assets/footer/Icon.svg" alt="go back up icon">
+					</div>
+				</a>
+				<div style="display: flex; flex-direction: row; align-self:flex-end; position: absolute; bottom: 0; right: 0">
+					<img height="120px" width="120px" src="/assets/NerdsSymbolDark.png" alt="Nerds logo">
+				</div>
+			</div>
+		</div>
 	</div>
-	<div class="FooterBar">
-		<p class="FooterText">©2025 Rhendra</p>
+	<div style="width: 100%; height:fit-content; position:relative;">
+		<img style="position: absolute; bottom: 0; left:60px" src="/assets/footer/catalog.nerds.my.id.svg" alt="catalog.nerds.my.id">
+		<p class="footerText">©2025 Rhendra under the MIT License. Keep circulating the HTML.<br>Content within this website may be licensed differently one to another.</p>
 	</div>
 </footer>
 
@@ -326,6 +373,97 @@
 		display: flex;
 		flex-direction: row;
 		padding: 60px 60px 0 60px;
+	}
+
+	.footerSpace {
+		height: 35px;
+	}
+
+	.footerLinks {
+		width: 832px;
+		display: flex;
+		flex-direction: row;
+	}
+
+	.footerLinksRows {
+		width: 33%;
+		display: flex;
+		flex-direction: column;
+	}
+
+	.footerText {
+		color: #FFF;
+		text-align: right;
+		font-family: "Roboto Flex";
+		font-size: 16px;
+		font-style: normal;
+		font-weight: 600;
+		line-height: 90%; /* 14.4px */
+		letter-spacing: -0.48px;
+		position: absolute;
+		right: 60px;
+		bottom: 0px;
+	}
+
+	.footerNerds {
+		width: calc(100% - 742px);
+		display: flex;
+		flex-direction: column;
+		align-items: flex-end;
+	}
+
+	.footerLinkHead {
+		color: #FFF;
+		font-family: Inter;
+		font-size: 24px;
+		font-style: normal;
+		font-weight: 600;
+		line-height: 90%; /* 21.6px */
+		letter-spacing: -0.72px;
+		text-align: start;
+		padding-bottom: 10px;
+	}
+
+	.footerGoBack {
+		color: #FFF;
+		font-family: Inter;
+		font-size: 24px;
+		font-style: normal;
+		font-weight: 600;
+		line-height: 90%; /* 21.6px */
+		letter-spacing: -0.72px;
+		margin-bottom: auto;
+		margin-top: auto;
+		width: calc(100% - 55px);
+		text-align: end;
+		padding-right: 10px;
+	}
+
+	.upIcon {
+		margin: auto;
+		height: 27.5px;
+		width: 27.5px;
+	}
+
+	.backButtonIconContain {
+		width: 55px !important;
+		height: 55px !important;
+		background-color: #FFF;
+		border-radius: calc(55px / 2);
+		display: flex;
+		align-items: center;
+	}
+
+	.footerLinkText {
+		color: #FFF;
+		font-family: Inter;
+		font-size: 20px;
+		font-style: normal;
+		font-weight: 300;
+		line-height: 137%; /* 27.4px */
+		letter-spacing: -0.6px;
+		text-align: start;
+		align-self: flex-start;
 	}
 
 	.mainheader_homepage {
@@ -431,7 +569,7 @@
 	}
 
 	@keyframes searchexpand {
-		0% { width: 55px; border-radius: calc(55px / 2); }
+		0% { width: 55px; border-radius: calc(55px / 2);}
 		8% { width: 55px; border-radius: calc(55px / 2); }
 		10% { width: 55px; border-radius: calc(55px / 2); }
 		18% { width: 51.95px; border-radius: calc(55px / 2); } /* Undershoot */
@@ -449,11 +587,12 @@
 		92% { width: 360px; border-radius: calc(55px / 2); }
 		96% { width: 360px; border-radius: calc(55px / 2); }
 		99% { width: 360px; border-radius: calc(55px / 2); }
-		100% { width: 360px; border-radius: calc(55px / 2); }
+		100% { width: 360px; border-radius: calc(55px / 2); border-color: #000000; box-shadow: 0 0 0 3px rgba(59, 59, 59, 0.25);
+}
 	}
 
 	@keyframes searchshrink {
-		0% { width: 360px; border-radius: calc(55px / 2); }
+		0% { width: 360px; border-radius: calc(55px / 2); box-shadow: inset; }
 		4% { width: 360px; border-radius: calc(55px / 2); }
 		8% { width: 360px; border-radius: calc(55px / 2); }
 		18% { width: 363.05px; border-radius: calc(55px / 2); } /* Overshoot */
@@ -470,7 +609,7 @@
 		82% { width: 51.95px; border-radius: calc(55px / 2); } /* Undershoot */
 		90% { width: 55px; border-radius: calc(55px / 2); }
 		92% { width: 55px; border-radius: calc(55px / 2); }
-		100% { width: 55px; border-radius: 50%; } /* Final state radius */
+		100% { width: 55px; border-radius: 50%; border:none ; box-shadow: none; } /* Final state radius */
 	}
 
 	@keyframes cartexpand {
@@ -513,134 +652,263 @@
 		100% { width: 55px; border-radius: 50%; }
 	}
 
-	@keyframes opacitydown {
-		0% {opacity: 1;}
+		@keyframes opacitydown {
+    0% {left: calc(1 * (50% - 13.75px) + 0 * 13px); display: block; margin-right: auto;}
 
-		4% {opacity: 1;}
+    4% {left: calc(1 * (50% - 13.75px) + 0 * 13px);}
 
-		8% {
-			opacity: 1;
-		}
+    8% {
+      left: calc(1 * (50% - 13.75px) + 0 * 13px);
+    }
 
-		18% {
-			opacity: 1.01;
-		}
+    18% {
+      left: calc(1.01 * (50% - 13.75px) + 0 * 13px);
+    }
 
-		20% {
-			opacity: 1;
-		}
+    20% {
+      left: calc(1 * (50% - 13.75px) + 0 * 13px);
+    }
 
-		28% {
-			opacity: 0.98;
-		}
+    28% {
+      left: calc(0.98 * (50% - 13.75px) + 0.02 * 13px);
+    }
 
-		30% {
-			opacity: 0.98;
-		}
+    30% {
+      left: calc(0.98 * (50% - 13.75px) + 0.02 *13px);
+    }
 
-		38% {
-			opacity: 1.09;
-		}
+    38% {
+      left: calc(1.09 * (50% - 13.75px) + -0.09 * 13px);
+    }
 
-		40% {
-			opacity: 1.12;
-		}
+    40% {
+      left: calc(1.12 * (50% - 13.75px) + -0.12 * 13px);
+    }
 
-		60% {
-			opacity: -0.12;
-		}
+    60% {
+      left: calc(-0.12 * (50% - 13.75px) + 1.12 * 13px);
+    }
 
-		62% {
-			opacity: -0.09;
-		}
+    62% {
+      left: calc(-0.09 * (50% - 13.75px) + 1.09 * 13px);
+    }
 
-		70% {
-			opacity: 0.02;
-		}
+    70% {
+      left: calc(0.02 * (50% - 13.75px) + 0.98 * 13px);
+    }
 
-		72% {
-			opacity: 0.02;
-		}
+    72% {
+      left: calc(0.02 * (50% - 13.75px) + 0.98 * 13px);
+    }
 
-		80% {
-			opacity: 0;
-		}
+    80% {
+      left: calc(0 * (50% - 13.75px) + 13px); /* This will resolve to 0 */
+    }
 
-		82% {
-			opacity: -0.01;
-		}
+    82% {
+      left: calc(-0.01 * (50% - 13.75px) + 1.01 * 13px);
+    }
 
-		90% {
-			opacity: 0;
-		}
+    90% {
+      left: calc(0 * (50% - 13.75px) + 13px); /* This will resolve to 0 */
+    }
 
-		92% {
-			opacity: 0;
-		}
+    92% {
+      left: calc(0 * (50% - 13.75px) + 13px); /* This will resolve to 0 */
+    }
 
-		99% {
-			opacity: 0;
-		}
+    99% {
+      left: calc(0 * (50% - 13.75px) + 13px); /* This will resolve to 0 */
+    }
 
-		100% {opacity: 0; display: none;}
-	}
+    100% {left: calc(0 * (50% - 13.75px) + 13px); position: absolute;} /* This will resolve to 0 */
+  }
 
 	@keyframes opacityup {
-		0% {
-			opacity: 0; display: block;
-		}
-		8% {
-			opacity: 0;
-		}
-		10% {
-			opacity: 0;
-		}
-		18% {
-			opacity: -0.01;
-		}
-		20% {
-			opacity: 0;
-		}
-		28% {
-			opacity: 0.02;
-		}
-		30% {
-			opacity: 0.02;
-		}
-		38% {
-			opacity: -0.09;
-		}
-		40% {
-			opacity: -0.12;
-		}
-		60% {
-			opacity: 1.12;
-		}
-		62% {
-			opacity: 1.09;
-		}
-		70% {
-			opacity: 0.98;
-		}
-		72% {
-			opacity: 0.98;
-		}
-		80% {
-			opacity: 1;
-		}
-		82% {
-			opacity: 1.01;
-		}
-		92% {
-			opacity: 1;
-		}
-		96% {
-			opacity: 1;
-		}
-		100% {
-			opacity: 1;
-		}
-	}
+    0% {
+      left: calc(0 * (50% - 13.75px) + 13px); position: absolute; width: fit-content; /* This will resolve to 0 */
+    }
+    8% {
+      left: calc(0 * (50% - 13.75px) + 13px); /* This will resolve to 0 */
+    }
+    10% {
+      left: calc(0 * (50% - 13.75px) + 13px); /* This will resolve to 0 */
+    }
+    18% {
+      left: calc(-0.01 * (50% - 13.75px) + 1.01 * 13px);
+    }
+    20% {
+      left: calc(0 * (50% - 13.75px) + 13px); /* This will resolve to 0 */
+    }
+    28% {
+      left: calc(0.02 * (50% - 13.75px) + 0.98 * 13px);
+    }
+    30% {
+      left: calc(0.02 * (50% - 13.75px) + 0.98 * 13px);
+    }
+    38% {
+      left: calc(-0.09 * (50% - 13.75px) + 1.09 * 13px);
+    }
+    40% {
+      left: calc(-0.12 * (50% - 13.75px) + 1.12 * 13px);
+    }
+    60% {
+      left: calc(1.12 * (50% - 13.75px) + -0.12 * 13px);
+    }
+    62% {
+      left: calc(1.09 * (50% - 13.75px) + -0.09 * 13px);
+    }
+    70% {
+      left: calc(0.98 * (50% - 13.75px) + 0.02 * 13px);
+    }
+    72% {
+      left: calc(0.98 * (50% - 13.75px) + 0.02 * 13px);
+    }
+    80% {
+      left: calc(1 * (50% - 13.75px));
+    }
+    82% {
+      left: calc(1.01 * (50% - 13.75px) + -0.01 * 13px);
+    }
+    92% {
+      left: calc(1 * (50% - 13.75px));
+    }
+    96% {
+      left: calc(1 * (50% - 13.75px));
+    }
+    100% {
+      left: calc(1 * (50% - 13.75px)); display: block; margin: auto;
+    }
+  }
+
+@keyframes opacitydownn {
+    0% {left: 1; display: block;}
+
+    4% {left: 1;}
+
+    8% {
+      left: 1;
+    }
+
+    18% {
+      left: 1.01;
+    }
+
+    20% {
+      left: 1;
+    }
+
+    28% {
+      left: 0.98;
+    }
+
+    30% {
+      left: 0.98;
+    }
+
+    38% {
+      left: 1.09;
+    }
+
+    40% {
+      left: 1.12;
+    }
+
+    60% {
+      left: -0.12;
+    }
+
+    62% {
+      left: -0.09;
+    }
+
+    70% {
+      left: 0.02;
+    }
+
+    72% {
+      left: 0.02;
+    }
+
+    80% {
+      left: 0;
+    }
+
+    82% {
+      left: -0.01;
+    }
+
+    90% {
+      left: 0;
+    }
+
+    92% {
+      left: 0;
+    }
+
+    99% {
+      left: 0;
+    }
+
+    100% {left: 0; display: relative;}
+  }
+
+  @keyframes opacityupp {
+    0% {
+      left: 0; display: relative;
+    }
+    8% {
+      left: 0;
+    }
+    10% {
+      left: 0;
+    }
+    18% {
+      left: -0.01;
+    }
+    20% {
+      left: 0;
+    }
+    28% {
+      left: 0.02;
+    }
+    30% {
+      left: 0.02;
+    }
+    38% {
+      left: -0.09;
+    }
+    40% {
+      left: -0.12;
+    }
+    60% {
+      left: 1.12;
+    }
+    62% {
+      left: 1.09;
+    }
+    70% {
+      left: 0.98;
+    }
+    72% {
+      left: 0.98;
+    }
+    80% {
+      left: 1;
+    }
+    82% {
+      left: 1.01;
+    }
+    92% {
+      left: 1;
+    }
+    96% {
+      left: 1;
+    }
+    100% {
+      left: 1; display: block;
+    }
+  }
 
 	.NavChoice:hover {
 		text-decoration: underline 3px #000000;
@@ -677,23 +945,32 @@
 		text-align: left;
 	}
 
-	.inputsmth::placeholder {
+	input::placeholder {
 		opacity: 0;
+		color: transparent;
 	}
 
-	.inputsmth::placeholder:focus {
+	input:focus::placeholder {
 		opacity: 1;
+		color: #999;
+	}
+
+	input:focus:-webkit-input-placeholder {
+		opacity: 1;
+  	color: #999;
 	}
 
 	input[type="text"]:focus {
-		border-color: #000000;
-		box-shadow: 0 0 0 3px rgba(59, 59, 59, 0.25);
+		border: none;
+		box-shadow: none;
 		outline: none;
+		width: calc(100% - 40px);
 	}
 
 	.expandSearchDiv {
 		border-radius: calc(55px / 2);
 		animation: searchexpand 0.5s ease-in-out 1 alternate both;
+		justify-content: end;
 	}
 
 	.shrinkSearchDiv {
@@ -702,12 +979,14 @@
 
 	.hideSearchIcon {
 		animation: opacitydown 0.5s ease-in-out 1 alternate both;
-		opacity: 0;
+		position: absolute;
+		margin: 0px;
+		width: fit-content;
+		left: 0px;
 	}
 
 	.showSearchIcon {
 		animation: opacityup 0.5s ease-in-out 1 alternate both;
-		opacity: 1;
 	}
 
 	.cartText {
@@ -730,13 +1009,13 @@
 	}
 
 	.showCartText {
-		animation: opacityup 0.5s ease-in-out 1 alternate both;
+		animation: opacityupp 0.5s ease-in-out 1 alternate both;
 		opacity: 1;
 		display: block;
 	}
 
 	.hideCartText {
-		animation: opacitydown 0.5s ease-in-out 1 alternate both;
+		animation: opacitydownn 0.5s ease-in-out 1 alternate both;
 	}
 
 	.expandCartDiv {
@@ -765,11 +1044,12 @@
 	.FooterBar {
 		justify-content: center;
 		text-align: center;
+		margin: 60px;
 		margin-top: 75px;
 		margin-bottom: 75px;
 		display: flex;
 		flex-direction: row;
-		width: 100%;
+		width: calc(100% - 120px);
 		height: fit-content;
 	}
 
