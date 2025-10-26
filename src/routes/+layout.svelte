@@ -314,8 +314,13 @@
 
 
 <style>
-	@import url('/assets/roboto.css');
-	@import url('/assets/inter.css');
+	@import url('/assets/fonts.css');
+
+	.buttons {
+		height: 26px !important;
+		width: 75px !important;
+		margin-bottom: 10px;
+	}
 
 	.mainheader {
 		display: flex;
