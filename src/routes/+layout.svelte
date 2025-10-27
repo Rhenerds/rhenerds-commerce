@@ -241,6 +241,7 @@
 
 </script>
 
+<a class="mainContentLink" href="#main">Skip to main content</a>
 <header id="top">
 	<div class="mainheader" class:mainheader_homepage={isHomePage}>
 		<a class="HeaderBox" href="/">
@@ -298,7 +299,7 @@
 			<CarouselIndicators class="p-4" position="withThumbnails" />
 	</Carousel>
 </div>
-<main class="MainBox" class:main_homepage={isHomePage}>
+<main class="MainBox" id="main" tabindex="-1" class:main_homepage={isHomePage}>
 	{@render children()}
 </main>
 <footer class:footer_homepage={isHomePage}>
@@ -362,6 +363,30 @@
 
 <style>
 	@import url('/assets/fonts.css');
+
+	.mainContentLink {
+		position: fixed;
+		top: 20px;
+		left: 20px;
+		z-index: 5;
+		background-color: white;
+		color: black;
+		width: fit-content;
+		height: auto;
+		opacity: 0;
+		text-align: right;
+		font-family: "Roboto Flex";
+		font-size: 22px;
+		font-style: normal;
+		font-weight: 600;
+		line-height: 90%; /* 14.4px */
+		letter-spacing: -0.48px;
+		padding: 10px;
+	}
+
+	.mainContentLink:focus {
+		opacity: 1;
+	}
 
 	.buttons {
 		height: 26px !important;
