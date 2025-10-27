@@ -242,6 +242,17 @@
 </script>
 
 <a class="mainContentLink" href="#main">Skip to main content</a>
+<noscript>
+	<div class="noScriptBackground">
+		<img height="120px" width="120px" src="/assets/NerdsSymbolDark.png" alt="Nerds logo">
+		<div class="jsWarningBlock">
+			<h1>JavaScript, please?</h1>
+			<p>Our website heavily relies on JavaScript to function properly.<br>We commit to keeping your privacy ensured by practicing as-minimal-as-possible data collection.<br>Please review our privacy policy here if it concerns you.</p>
+			<a href="/">Refresh</a>
+		</div>
+	</div>
+</noscript>
+
 <header id="top">
 	<div class="mainheader" class:mainheader_homepage={isHomePage}>
 		<a class="HeaderBox" href="/">
@@ -363,6 +374,75 @@
 
 <style>
 	@import url('/assets/fonts.css');
+
+	.noScriptBackground {
+		position: fixed;
+		width: 100%;
+		height: 100%;
+		z-index: 10;
+		top: 0;
+		left: 0;
+		background: url('/assets/1024-1024-crop.webp');
+		display: flex;
+    flex-direction: column;
+    justify-content: center; /* Center content vertically */
+    align-items: center; /* Center content horizontally */
+    text-align: center;
+		background-repeat: no-repeat;
+		background-size: cover;
+	}
+
+	.jsWarningBlock {
+		height: fit-content;
+		width: fit-content;
+		display: flex;
+    flex-direction: column;
+    justify-content: center; /* Center content vertically */
+    align-items: center; /* Center content horizontally */
+    text-align: center;
+		border-radius: 60px;
+		background-color: #FFF;
+		margin-top: 30px;
+	}
+
+	.jsWarningBlock h1 {
+		color: #000000;
+		font-family: Inter;
+		font-size: 24px;
+		font-style: normal;
+		font-weight: 600;
+		line-height: 90%; /* 21.6px */
+		letter-spacing: -0.72px;
+		margin: 20px;
+	}
+
+	.jsWarningBlock p {
+		color: #000000;
+		text-align: center;
+		font-family: "Roboto Flex";
+		font-size: 16px;
+		font-style: normal;
+		font-weight: 600;
+		line-height: 110%; /* 14.4px */
+		letter-spacing: -0.48px;
+		margin: 20px;
+	}
+
+	.jsWarningBlock a {
+		color: #1500d7;
+		text-align: center;
+		font-family: "Roboto Flex";
+		font-size: 16px;
+		font-style: normal;
+		font-weight: 600;
+		line-height: 90%; /* 14.4px */
+		letter-spacing: -0.48px;
+		margin: 20px;
+	}
+
+	.jsWarningBlock a:hover {
+		text-decoration: underline;
+	}
 
 	.mainContentLink {
 		position: fixed;
