@@ -86,13 +86,13 @@
                     {:else if cartproduct.linkstate != 'PO' || cartproduct.stock <= 0}
                         <p class="prodtext"><a target="_blank" style="text-decoration: line-through;" href="/catalog/{cartproduct.slug}">{cartproduct.title}</a></p>
                     {/if}
-                    <p class="prodprice">{cartproduct.price} x {cartproduct.quantity}</p>
+                    <p class="prodprice">{cartproduct.price}</p>
                     {#if cartproduct.linkstate != 'PO'}
                         <p style="font-size: 20px;" class="prodtextnu">Can't process non-preorder products! This wont proceed to checkout.</p>
                     {:else if cartproduct.stock <= 0}
                         <p style="font-size: 20px;" class="prodtextnu">Can't process out of stock products! This wont proceed to checkout.</p>
                     {:else}
-                        <p style="font-size: 20px;" class="prodtextnu">Available stock: {cartproduct.stock}</p>
+                        <p style="font-size: 20px; margin-top: 5px" class="prodtextnu">{cartproduct.stock} in stock</p>
                     {/if}
                 </div>
                 <div class="prodcontrolc">
@@ -185,10 +185,12 @@
 </div>
 
 <style>
+    @import url('/assets/fonts.css');
+
     .checkoutbutton {
         margin-top: 10px;
         color: #000;
-        font-family: "Roboto Flex";
+        font-family: "Inter";
         font-size: 23px;
         font-style: normal;
         font-weight: 340;
@@ -213,7 +215,7 @@
     .ncheckoutbutton {
         margin-top: 10px;
         color: #000;
-        font-family: "Roboto Flex";
+        font-family: "Inter";
         font-size: 23px;
         font-style: normal;
         font-weight: 340;
@@ -244,7 +246,7 @@
         margin: 5px;
         box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.25);
 
-        font-family: "Roboto Flex";
+        font-family: "Inter";
         font-size: 18px;
         font-style: normal;
         font-weight: 380;
@@ -269,7 +271,7 @@
 
     h1 {
         color: #000;
-        font-family: "Roboto Flex";
+        font-family: "Inter";
         font-size: 64px;
         font-style: normal;
         font-weight: 600;
@@ -280,7 +282,7 @@
 
     h2 {
         color: #000;
-        font-family: "Roboto Flex";
+        font-family: "Inter";
         font-size: 24px;
         font-style: normal;
         font-weight: 450;
@@ -344,7 +346,7 @@
 
     .prodtext {
         color: #000;
-        font-family: "Roboto Flex";
+        font-family: "Inter";
         font-size: 25px;
         font-style: normal;
         font-weight: 340;
@@ -354,7 +356,7 @@
 
     .prodtextnu {
         color: #000;
-        font-family: "Roboto Flex";
+        font-family: "Inter";
         font-size: 25px;
         font-style: normal;
         font-weight: 340;
@@ -368,7 +370,7 @@
 
     .empty {
         color: #000;
-        font-family: "Roboto Flex";
+        font-family: "Inter";
         font-size: 25px;
         font-style: normal;
         font-weight: 340;
@@ -380,7 +382,7 @@
 
     .prodprice {
         color: #000;
-        font-family: "Roboto Flex";
+        font-family: "Inter";
         font-size: 30px;
         font-style: normal;
         font-weight: 380;
@@ -391,10 +393,10 @@
 
     .totalprice {
         color: #000;
-        font-family: "Roboto Flex";
+        font-family: "Inter";
         font-size: 30px;
         font-style: normal;
-        font-weight: 380;
+        font-weight: 600;
         line-height: 90%; /* 18px */
         letter-spacing: -0.6px;
         margin: 20px;
@@ -454,7 +456,7 @@
         background: transparent;
         text-align: center;
         font-size: 20px;
-        font-family: 'Roboto Flex';
+        font-family: 'Inter';
         -moz-appearance: textfield;
 
 	}
@@ -475,7 +477,7 @@
         height: 100%;
         width: 100%;
         color: #000;
-        font-family: "Roboto Flex";
+        font-family: "Inter";
         font-size: 30px;
         font-style: normal;
         font-weight: 380;
