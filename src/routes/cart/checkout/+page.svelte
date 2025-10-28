@@ -1,4 +1,11 @@
 <script lang="ts">
+	import { onMount } from 'svelte';
+    import {
+        initializeJokulCheckout,
+        loadJokulCheckout,
+        alertMyMessage
+    } from '$lib/jokul.ts';
+
     let { data } = $props()
 
     function formatNumberToRupiah(num: number): string {
@@ -22,6 +29,22 @@
 
         return `Rp ${formattedIntegerPart},${decimalPart}`;
     }
+
+    function handleCheckout() {
+        if (data.jokulLink) {
+            loadJokulCheckout(data.jokulLink);
+        } else {
+            console.error("Checkout link is not available.");
+        }
+    }
+
+    onMount(() => {
+        if (data.jokulLink) {
+            initializeJokulCheckout();
+            window.alertMyMessage = alertMyMessage;
+            handleCheckout();
+        }
+    })
 </script>
 
 <a href="/cart" class="BackLink">Return to cart to edit order</a>
