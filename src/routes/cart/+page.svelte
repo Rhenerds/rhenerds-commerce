@@ -179,7 +179,7 @@
         {#if poItemsLength() > 0}
             <a href="/cart/checkout" class="checkoutbutton">Checkout</a>
         {:else}
-            <p class="checkoutbutton" >Nothing to checkout</p>
+            <p class="ncheckoutbutton" >Nothing to checkout</p>
         {/if}
     </div>
 </div>
@@ -203,6 +203,32 @@
         text-align: center;
         justify-content: center;
         align-items: center;
+        box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.25);
+    }
+
+    .checkoutbutton:hover {
+        background-color: #c356c3;
+    }
+
+    .ncheckoutbutton {
+        margin-top: 10px;
+        color: #000;
+        font-family: "Roboto Flex";
+        font-size: 23px;
+        font-style: normal;
+        font-weight: 340;
+        line-height: 107%; /* 18px */
+        letter-spacing: -0.6px;
+        width: calc(100% - 40px);
+        background-color: #c6c6c6;
+        height: 50px;
+        border-radius: 5px;
+        display: flex;
+        margin: 20px;
+        text-align: center;
+        justify-content: center;
+        align-items: center;
+        box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.25);
     }
 
     .clearspace {
@@ -216,6 +242,7 @@
         color: #FFF;
         border-radius: 5px;
         margin: 5px;
+        box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.25);
 
         font-family: "Roboto Flex";
         font-size: 18px;
@@ -230,13 +257,14 @@
     }
 
     .clearbar {
-        background-color: #AAA;
+        background-color: #FFF;
         border-radius: 10px;
         width: 100%;
         height: fit-content;
         display: flex;
         flex-direction: row;
         margin-top: 10px;
+        box-shadow: 0 0 16px 0 rgba(0, 0, 0, 0.25)
     }
 
     h1 {
@@ -277,20 +305,22 @@
     }
 
     .cartitem {
-        background-color: #AAA;
+        background-color: #FFF;
         border-radius: 10px;
         width: 100%;
         height: 150px;
         display: flex;
         flex-direction: row;
         margin-bottom: 15px;
+        box-shadow: 0 0 16px 0 rgba(0, 0, 0, 0.25)
     }
 
     .checkout {
         width: 25%;
         height: fit-content;
-        background-color: #AAA;
+        background-color: #FFF;
         border-radius: 10px;
+        box-shadow: 0 0 16px 0 rgba(0, 0, 0, 0.25)
     }
 
     .prodimage {
@@ -300,6 +330,8 @@
         object-fit: contain;
         background-color: #999;
         border-radius: 5px;
+        box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.25);
+        overflow: hidden;
     }
 
     .prodinfo {
@@ -331,7 +363,7 @@
     }
 
     .prodtext:hover {
-        text-decoration: underline 2px;
+        text-decoration: none;
     }
 
     .empty {
@@ -383,15 +415,21 @@
         display: flex;
         flex-direction: row;
         padding: 2px;
+        box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.25);
+    }
+
+    .prodcontrol:not(:last-child) {
+        border-right: #999;
     }
 
     .controldiv {
         height: 100%;
         width: calc(33% - 1.3333px);
+
     }
 
     .controldiv:not(:last-child) {
-        margin-right: 2px;
+        border-right: #00000031 3px dotted;
     }
 
     label {
@@ -459,6 +497,11 @@
         border-radius: 5px;
         margin-top: 5px;
         margin-bottom: 5px;
+        box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.25);
+    }
+
+    .proddelete:hover {
+        background-color: #A00;
     }
 
     .spacing {
