@@ -6,9 +6,7 @@
 {#if data.trstatus === 'SUCCESS'}
     <img src="/assets/statuspage/success.png" style="image-rendering: crisp-edges;" alt="A drawing of two fish approving a package, your order went through!">
     <h1>Transaction Success!</h1>
-    <p>We've received your order. See you there at Comifuro for pickup! Thank you for ordering :3</p>
-    <p>Make sure you've received your 'Order Complete' invoice in your email inbox for pickup.</p>
-    <p>We'll also add your phone number to a WhatsApp group for better pickup communications</p>
+    <p>Thank you for your order!</p>
     <p>Invoice Number: {data.invoice}</p>
     <div class="links">
         <a class="link" href="/">To Home</a>
@@ -89,6 +87,7 @@
         font-weight: 300;
         line-height: 90%; /* 18px */
         letter-spacing: -0.6px;
+        margin-top: 10px;
     }
 
     img {
