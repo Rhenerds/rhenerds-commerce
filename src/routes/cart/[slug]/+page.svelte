@@ -17,7 +17,7 @@
             console.log('CLIENT: Invalidation triggered for layout data.');
         }, 50);
   })
-  
+
   interface Props {
     // Props passed from +page.server.ts (data)
     data: PageData;
@@ -59,36 +59,35 @@
 </script>
 
 <div class="flex flex-col items-center justify-center p-4 font-sans text-gray-900">
-  <div class="bg-white p-8 rounded-xl shadow-2xl text-center max-w-md w-full">
+  <div class="">
 
     <!-- Display confirmation/error message and product info immediately -->
-    <h1 class="bulletText text-4xl font-extrabold {isSuccess ? 'text-green-700' : 'text-red-700'} mb-6 bulletText">
-      Product Added!
+    <h1 class="bulletText text-4xl font-extrabold text-gray-800 mb-6 bulletText">
+      Product Added
     </h1>
     <div class="flex flex-col items-center mb-6">
       <img src={productImage} alt={productTitle} class="w-32 h-32 object-cover rounded-lg shadow-md mb-4" onerror="{handleImageError}" />
       <h2 class="text-2xl font-semibold text-gray-900 mb-2">{productTitle}</h2>
-      <p class="text-lg text-gray-700 mb-1">{productDescription}</p>
-      <p class="text-xl font-bold text-gray-800">{productPrice}</p>
+      <p class="text-xl font-bold text-gray-800">{productPrice},00</p>
       <p class="text-xl font-bold text-gray-800">Quantity in cart: {data.newQuantity}</p>
     </div>
 
     <div class="flex flex-col space-y-4">
       <button
         onclick={checkCart}
-        class="bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-6 rounded-lg shadow-lg transform transition-all duration-300 ease-in-out hover:scale-105 focus:outline-none focus:ring-4 focus:ring-blue-500 focus:ring-opacity-50"
+        class="bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-6 rounded-lg shadow-lg focus:ring-blue-500 focus:ring-opacity-50"
       >
         Check Cart
       </button>
       <button
         onclick={returnToShopping}
-        class="bg-purple-600 hover:bg-purple-700 text-white font-bold py-3 px-6 rounded-lg shadow-lg transform transition-all duration-300 ease-in-out hover:scale-105 focus:outline-none focus:ring-4 focus:ring-purple-500 focus:ring-opacity-50"
+        class="bg-purple-600 hover:bg-purple-700 text-white font-bold py-3 px-6 rounded-lg shadow-lg focus:ring-purple-500 focus:ring-opacity-50"
       >
         Return to Shopping
       </button>
       <button
         onclick={goBack}
-        class="bg-gray-300 hover:bg-gray-400 text-gray-800 font-bold py-2 px-4 rounded-lg shadow-md transform transition-all duration-300 ease-in-out hover:scale-105 focus:outline-none focus:ring-4 focus:ring-gray-300 focus:ring-opacity-50"
+        class="bg-gray-300 hover:bg-gray-400 text-gray-800 font-bold py-2 px-4 rounded-lg shadow-md focus:ring-gray-300 focus:ring-opacity-50"
       >
         Back to Products
       </button>
@@ -98,25 +97,26 @@
 
 <style>
     h1 {
-        font-family: "Roboto Flex";
+        font-family: "Inter";
         font-style: normal;
         font-weight: 600;
         line-height: 90%; /* 57.6px */
         letter-spacing: -1.92px;
     }
     h2 {
-        font-family: "Roboto Flex";
+        font-family: "Inter";
         font-style: normal;
         font-weight: 400;
         line-height: 90%; /* 57.6px */
         letter-spacing: -1.92px;
     }
     p, button {
-        font-family: "Roboto Flex";
+        font-family: "Inter";
         font-style: normal;
         font-weight: 300;
         line-height: 90%; /* 57.6px */
         letter-spacing: -1px;
         font-size: 25px;
+        margin-top: 10px;
     }
 </style>
