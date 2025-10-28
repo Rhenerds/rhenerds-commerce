@@ -77,7 +77,7 @@
     button {
         margin-top: 10px;
         color: #000;
-        font-family: "Roboto Flex";
+        font-family: "Inter";
         font-size: 23px;
         font-style: normal;
         font-weight: 340;
@@ -92,7 +92,7 @@
 
     .checkouttext {
         color: #000;
-        font-family: "Roboto Flex";
+        font-family: "Inter";
         font-size: 30px;
         font-style: normal;
         font-weight: 400;
@@ -108,7 +108,7 @@
     label {
         margin-top: 10px;
         color: #000;
-        font-family: "Roboto Flex";
+        font-family: "Inter";
         font-size: 23px;
         font-style: normal;
         font-weight: 340;
@@ -119,7 +119,7 @@
     .notice {
         margin-top: 10px;
         color: #000;
-        font-family: "Roboto Flex";
+        font-family: "Inter";
         font-size: 18px;
         font-style: normal;
         font-weight: 340;
@@ -130,7 +130,7 @@
     .errtext {
         margin-top: 10px;
         color: #000;
-        font-family: "Roboto Flex";
+        font-family: "Inter";
         font-size: 23px;
         font-style: normal;
         font-weight: 340;
@@ -148,7 +148,7 @@
         width: 100%;
         -moz-appearance: textfield;
         color: #000;
-        font-family: "Roboto Flex";
+        font-family: "Inter";
         font-size: 23px;
         font-style: normal;
         font-weight: 340;
@@ -159,7 +159,7 @@
 
     .prodtext {
         color: #000;
-        font-family: "Roboto Flex";
+        font-family: "Inter";
         font-size: 23px;
         font-style: normal;
         font-weight: 340;
@@ -182,7 +182,7 @@
     .BackLink {
 		color: #000158;
 		text-align: left;
-		font-family: "Roboto Flex";
+		font-family: "Inter";
 		font-size: 20px;
 		font-style: normal;
 		font-weight: 300;
@@ -205,7 +205,7 @@
 
     h1 {
         color: #000;
-        font-family: "Roboto Flex";
+        font-family: "Inter";
         font-size: 64px;
         font-style: normal;
         font-weight: 600;
@@ -231,9 +231,10 @@
         width: 330px;
         margin-left: 20px;
         height: fit-content;
-        background-color: #AAA;
+        background-color: #FFF;
         border-radius: 20px;
         padding: 20px;
+        box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.25);
     }
 
     .oneproduct {
