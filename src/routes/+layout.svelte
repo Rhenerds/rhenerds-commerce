@@ -318,42 +318,52 @@
 		<div class="footerLinks">
 			<div class="footerLinksRows">
 				<p class="footerLinkHead">Catalog</p>
-				<a href="/about" class="footerLinkText">About</a>
-				<a href="/legal" class="footerLinkText">Legal</a>
-				<a href="/guide" class="footerLinkText">Guide</a>
-				<a href="/announcements" class="footerLinkText">Announcements</a>
-				<a target="_blank" href="https://github.com/Rhenerds/rhenerds-commerce" class="footerLinkText">Source code</a>
+				<ul>
+					<li><a href="/about" class="footerLinkText">About</a></li>
+					<li><a href="/legal" class="footerLinkText">Legal</a></li>
+					<li><a href="/guide" class="footerLinkText">Guide</a></li>
+					<li><a href="/announcements" class="footerLinkText">Announcements</a></li>
+					<li><a target="_blank" href="https://github.com/Rhenerds/rhenerds-commerce" class="footerLinkText">Source code</a></li>
+				</ul>
 				<div class="footerSpace"></div>
-				<p class="footerLinkHead">Nerds</p>
-				<a href="/about" class="footerLinkText">Main Website</a>
-				<a href="/legal" class="footerLinkText">About Us</a>
-				<a href="/guide" class="footerLinkText">Transparency</a>
+				<ul>
+					<li><p class="footerLinkHead">Nerds</p></li>
+					<li><a href="/about" class="footerLinkText">Main Website</a></li>
+					<li><a href="/legal" class="footerLinkText">About Us</a></li>
+					<li><a href="/guide" class="footerLinkText">Transparency</a></li>
+				</ul>
 			</div>
 			<div class="footerLinksRows">
 				<p class="footerLinkHead">Featured</p>
-				<a target="_blank" href="https://kraafter.me/" class="footerLinkText">Kraafter</a>
-				<a target="_blank" href="https://ryj.my.id/" class="footerLinkText">Ryoojiz</a>
-				<a target="_blank" href="https://ivrry.nekoweb.org/" class="footerLinkText">Noelle</a>
+				<ul>
+					<li><a target="_blank" href="https://kraafter.me/" class="footerLinkText">Kraafter</a></li>
+					<li><a target="_blank" href="https://ryj.my.id/" class="footerLinkText">Ryoojiz</a></li>
+					<li><a target="_blank" href="https://ivrry.nekoweb.org/" class="footerLinkText">Noelle</a></li>
+				</ul>
 				<div class="footerSpace"></div>
 				<p class="footerLinkHead">Get in Touch</p>
-				<a href="/about" class="footerLinkText">Contact Form</a>
-				<a href="/legal" class="footerLinkText">Instagram</a>
+				<ul>
+					<li><a href="/about" class="footerLinkText">Contact Form</a></li>
+					<li><a href="/legal" class="footerLinkText">Instagram</a></li>
+				</ul>
 			</div>
 			<div class="footerLinksRows">
 				<p class="footerLinkHead">Buttons</p>
-				<a target="_blank" href="https://www.mabsland.com/Adoption.html" aria-label="Censorship Panda 14">
-					<img class="buttons" src="/assets/footer/Censor_14c.gif" alt="Censorship Panda 14">
-				</a>
-				<img class="buttons" src="/assets/footer/twopaws.png" alt="Made with our own two paws">
-				<img class="buttons" src="/assets/footer/linuxnow.jpg" alt="Linux now">
-				<img class="buttons" src="/assets/footer/windows.gif" alt="Made With Windows">
-				<img class="buttons" src="/assets/footer/pride.gif" alt="Pride">
-				<img class="buttons" src="/assets/footer/youre_telling_me.png" alt="You're telling a queer coded this">
+				<ul>
+					<li><a target="_blank" href="https://www.mabsland.com/Adoption.html" aria-label="Censorship Panda 14">
+						<img class="buttons" src="/assets/footer/Censor_14c.gif" alt="Censorship Panda 14">
+					</a></li>
+					<li><img class="buttons" src="/assets/footer/twopaws.png" alt="Made with our own two paws"></li>
+					<li><img class="buttons" src="/assets/footer/linuxnow.jpg" alt="Linux now"></li>
+					<li><img class="buttons" src="/assets/footer/windows.gif" alt="Made With Windows"></li>
+					<li><img class="buttons" src="/assets/footer/pride.gif" alt="Pride"></li>
+					<li><img class="buttons" src="/assets/footer/youre_telling_me.png" alt="You're telling a queer coded this"></li>
+				</ul>
 			</div>
 		</div>
 		<div class="footerNerds">
 			<div style="display: flex; flex-direction:column; width: 100%; position: relative; height:100%">
-				<a href="#top" style="display: flex; flex-direction:row">
+				<a href="#top" class="toTopButton" style="display: flex; flex-direction:row">
 					<p class="footerGoBack">Back to Top</p>
 					<div class="backButtonIconContain">
 						<img class="upIcon" src="/assets/footer/Icon.svg" alt="go back up icon">
@@ -374,6 +384,10 @@
 
 <style>
 	@import url('/assets/fonts.css');
+
+	.toTopButton:hover {
+		transform: scale(1.05) translateX(-10px);
+	}
 
 	.noScriptBackground {
 		position: fixed;
@@ -529,6 +543,10 @@
 		padding-bottom: 10px;
 	}
 
+	ul {
+		text-align: left;
+	}
+
 	.footerGoBack {
 		color: #FFF;
 		font-family: Inter;
@@ -569,6 +587,10 @@
 		letter-spacing: -0.6px;
 		text-align: start;
 		align-self: flex-start;
+	}
+
+	.footerLinkText:hover {
+		text-decoration: underline 2px;
 	}
 
 	.mainheader_homepage {
