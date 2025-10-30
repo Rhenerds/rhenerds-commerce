@@ -44,10 +44,10 @@
 
 /* product info styling */
 :root {
-    --unavailable-color: #f44336;
-    --sold-out-color: #e91e63;
-    --po-open-color: #4caf50;
-    --ots-open-color: #2196f3;
+    --unavailable-color: #AF0000;
+    --sold-out-color: #AF0000;
+    --po-open-color: #35369a;
+    --ots-open-color: #007228;
 }
 .prod-chip {
     box-shadow: rgba(0, 0, 0, 0.12) 0px 1px 4px;
