@@ -69,6 +69,7 @@
         {#if data.errStatus === "existingcheckout"}
             <p class="errtext">Please avoid clicking on checkout again if you've returned from the Doku checkout page. To edit your order, contact us to void your unpaid invoice, then submit another checkout request.</p>
         {/if}
+        <img src="/assets/doku.png" alt="Secure payment by Doku" />
         <p class="notice">By proceeding to payment, you acknowledge and agree to our <a class="Link" href="/legal" target="_blank">legal terms and notices</a>. Your personal information is encrypted using ssl/tls during transport.</p>
     </div>
 </div>
@@ -231,8 +232,9 @@
         width: 330px;
         margin-left: 20px;
         height: fit-content;
-        background-color: #AAA;
-        border-radius: 20px;
+		box-shadow: rgba(0, 0, 0, 0.1) 0px 1px 16px;
+		border: 3px solid #00000020;
+		border-radius: 20px;
         padding: 20px;
     }
 
