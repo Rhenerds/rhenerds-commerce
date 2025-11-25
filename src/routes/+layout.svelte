@@ -328,9 +328,9 @@
 				<div class="footerSpace"></div>
 				<ul>
 					<li><p class="footerLinkHead">Nerds</p></li>
-					<li><a href="/about" class="footerLinkText">Main Website</a></li>
-					<li><a href="/legal" class="footerLinkText">About Us</a></li>
-					<li><a href="/guide" class="footerLinkText">Transparency</a></li>
+					<li><a href="https://nerds.my.id/" target="_blank" class="footerLinkText">Main Website</a></li>
+					<li><a href="https://nerds.my.id/about" target="_blank" class="footerLinkText">About Us</a></li>
+					<li><a href="https://transparency.nerds.my.id/" target="_blank" class="footerLinkText">Transparency</a></li>
 				</ul>
 			</div>
 			<div class="footerLinksRows">
@@ -343,8 +343,8 @@
 				<div class="footerSpace"></div>
 				<p class="footerLinkHead">Get in Touch</p>
 				<ul>
-					<li><a href="/about" class="footerLinkText">Contact Form</a></li>
-					<li><a href="/legal" class="footerLinkText">Instagram</a></li>
+					<li><a href="https://nerds.my.id/contact" target="_blank" class="footerLinkText">Contact Form</a></li>
+					<li><a href="https://www.instagram.com/rhe_nerds/" target="_blank" class="footerLinkText">Instagram</a></li>
 				</ul>
 			</div>
 			<div class="footerLinksRows">
