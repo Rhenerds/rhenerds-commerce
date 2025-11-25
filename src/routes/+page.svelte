@@ -9,11 +9,12 @@
 	<title>{config.title}</title>
 </svelte:head>
 
-<h1>Welcome to our catalog site</h1>
-<p class="TopText">Preorders coming soon... <a class="TopLink" href="/legal/preordering">Preorder Notice</a></p>
+<div class="annc">
+    <p class="TopText">Latest Announcement : Text Here</p>
+</div>
 
 {#each data.fandoms as fandom}
-    <h2>{fandom} Merch</h2>
+    <h2>{fandom}</h2>
     <ProductView {fandom} {data} />
 {/each}
 
@@ -51,11 +52,24 @@
     .TopText {
         color: #000;
         font-family: "Roboto Flex";
-        font-size: 40px;
+        font-size: 25px;
         font-style: normal;
         font-weight: 320;
         line-height: 90%; /* 36px */
         letter-spacing: -1.2px;
         margin-bottom: 45px;
+        width: 100%;
+        text-align: center;
+        transform: translateY(-50px)
+    }
+
+    .annc {
+        width: calc(100% + 120px);
+        border-top-left-radius: 60px;
+        border-top-right-radius: 60px;
+        background-color: #fff;
+        box-shadow: 0 -16px 16px 0 rgba(0, 0, 0, 0.25);
+        height: 60px;
+        transform: translateX(-60px) translateY(15px);
     }
 </style>

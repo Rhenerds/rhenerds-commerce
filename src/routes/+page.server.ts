@@ -1,3 +1,4 @@
+import { browser } from '$app/environment'
 import type { Post } from '$lib/types'
 
 // iv - there's probably a better place to put this but for neow it's okay
@@ -9,7 +10,7 @@ export async function load({ fetch }) {
 
 	const slugs = preposts.map(item => item.slug)
 
-	console.log(slugs)
+	if (browser) {console.log(slugs)}
 
 	const stocksresponse = await fetch(
 		'/api/stock/getmultiple',
@@ -33,7 +34,7 @@ export async function load({ fetch }) {
 	const posts = preposts.map(item => {
 		if (item.slug) {
 			const stock = stockjson.values ? Number(stockjson.values[item.slug]) : null
-			console.log(`Stock for ${item.slug}: ${stock}`)
+			if (browser) {console.log(`Stock for ${item.slug}: ${stock}`)}
 			return { ...item, stock: stock }
 		}
 		return item

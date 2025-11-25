@@ -1,6 +1,7 @@
 // src/routes/cart/+page.ts
 import { redirect } from '@sveltejs/kit';
 import type { PageServerLoad, Actions } from './$types';
+import { browser } from '$app/environment';
 
 interface CartItemCookie {
   slug: string;
@@ -87,6 +88,7 @@ export const load: PageServerLoad = async ({ fetch, locals, cookies, url }) => {
   // Access the cart data that was parsed and attached by hooks.server.ts
   let rawCart: CartItemCookie[] = locals.cart || []; // Initialize with locals.cart
   const errStatus = url.searchParams.get('r');
+  const jokulLink = url.searchParams.get('jokul');
 
   // If locals.cart is empty or null/undefined, try to get from 'user_cart' cookie
   if (!rawCart || rawCart.length === 0) {
@@ -97,7 +99,7 @@ export const load: PageServerLoad = async ({ fetch, locals, cookies, url }) => {
         // Basic validation for the parsed cookie content
         if (Array.isArray(parsedUserCart) && parsedUserCart.every(item => typeof item === 'object' && item !== null && 'slug' in item && 'quantity' in item)) {
           rawCart = parsedUserCart;
-          console.log('Cart loaded from user_cart cookie:', rawCart);
+          if (browser) {console.log('Cart loaded from user_cart cookie:', rawCart);}
         } else {
           console.warn('Invalid user_cart cookie format, ignoring:', userCartCookie);
           cookies.delete('user_cart', { path: '/' }); // Optionally clear invalid cookie
@@ -133,6 +135,7 @@ export const load: PageServerLoad = async ({ fetch, locals, cookies, url }) => {
     cart: enrichedCart, // This is the cart content you want in +page.svelte
     totalPrice: totalPrice,
     errStatus: errStatus,
+    jokulLink: jokulLink ? decodeURI(jokulLink) : null,
   };
 };
 
@@ -158,7 +161,7 @@ export const actions: Actions = {
           // Basic validation for the parsed cookie content
           if (Array.isArray(parsedUserCart) && parsedUserCart.every(item => typeof item === 'object' && item !== null && 'slug' in item && 'quantity' in item)) {
             rawCart = parsedUserCart;
-            console.log('Cart loaded from user_cart cookie:', rawCart);
+            if (browser) {console.log('Cart loaded from user_cart cookie:', rawCart);}
           } else {
             console.warn('Invalid user_cart cookie format, ignoring:', userCartCookie);
             cookies.delete('user_cart', { path: '/' }); // Optionally clear invalid cookie
@@ -211,9 +214,10 @@ export const actions: Actions = {
 
     if (response.ok) {
       const responseData = await response.json()
-      console.log(responseData)
+      if (browser) {console.log(responseData)}
       if (responseData.result === "SUCCESS") {
-        redirlink = responseData.link
+        const encodedCL = encodeURI(responseData.link)
+        redirlink = "/cart/checkout?jokul=" + encodedCL
       } else if (responseData.response === "CARTISSUE") {
         redirlink = "/cart/checkout?r=ercart"
       } else {
@@ -225,5 +229,5 @@ export const actions: Actions = {
 
     return redirect(303, redirlink)
   }
-  
+
 };

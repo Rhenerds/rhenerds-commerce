@@ -1,4 +1,11 @@
 <script lang="ts">
+	import { onMount } from 'svelte';
+    import {
+        initializeJokulCheckout,
+        loadJokulCheckout,
+        alertMyMessage
+    } from '$lib/jokul.ts';
+
     let { data } = $props()
 
     function formatNumberToRupiah(num: number): string {
@@ -22,6 +29,22 @@
 
         return `Rp ${formattedIntegerPart},${decimalPart}`;
     }
+
+    function handleCheckout() {
+        if (data.jokulLink) {
+            loadJokulCheckout(data.jokulLink);
+        } else {
+            console.error("Checkout link is not available.");
+        }
+    }
+
+    onMount(() => {
+        if (data.jokulLink) {
+            initializeJokulCheckout();
+            window.alertMyMessage = alertMyMessage;
+            handleCheckout();
+        }
+    })
 </script>
 
 <a href="/cart" class="BackLink">Return to cart to edit order</a>
@@ -78,7 +101,7 @@
     button {
         margin-top: 10px;
         color: #000;
-        font-family: "Roboto Flex";
+        font-family: "Inter";
         font-size: 23px;
         font-style: normal;
         font-weight: 340;
@@ -93,7 +116,7 @@
 
     .checkouttext {
         color: #000;
-        font-family: "Roboto Flex";
+        font-family: "Inter";
         font-size: 30px;
         font-style: normal;
         font-weight: 400;
@@ -109,7 +132,7 @@
     label {
         margin-top: 10px;
         color: #000;
-        font-family: "Roboto Flex";
+        font-family: "Inter";
         font-size: 23px;
         font-style: normal;
         font-weight: 340;
@@ -120,7 +143,7 @@
     .notice {
         margin-top: 10px;
         color: #000;
-        font-family: "Roboto Flex";
+        font-family: "Inter";
         font-size: 18px;
         font-style: normal;
         font-weight: 340;
@@ -131,7 +154,7 @@
     .errtext {
         margin-top: 10px;
         color: #000;
-        font-family: "Roboto Flex";
+        font-family: "Inter";
         font-size: 23px;
         font-style: normal;
         font-weight: 340;
@@ -149,7 +172,7 @@
         width: 100%;
         -moz-appearance: textfield;
         color: #000;
-        font-family: "Roboto Flex";
+        font-family: "Inter";
         font-size: 23px;
         font-style: normal;
         font-weight: 340;
@@ -160,7 +183,7 @@
 
     .prodtext {
         color: #000;
-        font-family: "Roboto Flex";
+        font-family: "Inter";
         font-size: 23px;
         font-style: normal;
         font-weight: 340;
@@ -183,7 +206,7 @@
     .BackLink {
 		color: #000158;
 		text-align: left;
-		font-family: "Roboto Flex";
+		font-family: "Inter";
 		font-size: 20px;
 		font-style: normal;
 		font-weight: 300;
@@ -206,7 +229,7 @@
 
     h1 {
         color: #000;
-        font-family: "Roboto Flex";
+        font-family: "Inter";
         font-size: 64px;
         font-style: normal;
         font-weight: 600;
@@ -232,10 +255,10 @@
         width: 330px;
         margin-left: 20px;
         height: fit-content;
-		box-shadow: rgba(0, 0, 0, 0.1) 0px 1px 16px;
-		border: 3px solid #00000020;
-		border-radius: 20px;
+        background-color: #FFF;
+        border-radius: 20px;
         padding: 20px;
+        box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.25);
     }
 
     .oneproduct {
