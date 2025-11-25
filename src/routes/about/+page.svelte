@@ -1,11 +1,12 @@
 <article>
-    <h1>Who are we?</h1>
+    <h1>About Us</h1>
+    <h2>Who are we?</h2>
     <p>We are a small friend group of mostly Indonesian furries with various hobbies, interests, and quirks. We actually began from a group of furries within a coding competition server but grew quickly with friends made along they way!</p>
-    <h1>What is this website?</h1>
+    <h2>What is this website?</h2>
     <p>This website is purposed as a catalog information and preordering website to aid us in selling goods and merchandise at events such as Comifuro, CAFA, etc.</p>
-    <h1>Do I need to log in to use this website?</h1>
+    <h2>Do I need to log in to use this website?</h2>
     <p>You might have noticed this website does not have any single login functionality, that is by design. We keep the website simple and privacy respecting by collecting as little info as possible.</p>
-    <h1>How do I preorder?</h1>
+    <h2>How do I preorder?</h2>
     <p>Preorders may not be available for every product, but if available you may click on the add to cart button and purchase them like purchasing in an e-commerce website. Payment and invoicing are handled by Doku.</p>
     <br>
     <p>Nerds Catalog is built for Nerds Merchandising, a project by Rhendra Networking.</p>
@@ -13,6 +14,17 @@
 
 <style>
     h1 {
+        color: #000;
+        font-family: "Roboto Flex";
+        font-size: 64px;
+        font-style: normal;
+        font-weight: 600;
+        line-height: 90%; /* 57.6px */
+        letter-spacing: -1.92px;
+        margin-bottom: 90px;
+    }
+
+    h2 {
         color: #000;
         font-family: "Roboto Flex";
         font-size: 40px;
