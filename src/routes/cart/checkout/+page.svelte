@@ -92,6 +92,7 @@
         {#if data.errStatus === "existingcheckout"}
             <p class="errtext">Please avoid clicking on checkout again if you've returned from the Doku checkout page. To edit your order, contact us to void your unpaid invoice, then submit another checkout request.</p>
         {/if}
+        <img src="/assets/doku.png" alt="Secure payment by Doku" />
         <p class="notice">By proceeding to payment, you acknowledge and agree to our <a class="Link" href="/legal" target="_blank">legal terms and notices</a>. Your personal information is encrypted using ssl/tls during transport.</p>
     </div>
 </div>
